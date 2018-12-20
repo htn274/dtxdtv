@@ -3,6 +3,7 @@ package com.example.thiennu.dtxdtv;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,12 +20,14 @@ public class Trips extends AppCompatActivity {
         setContentView(R.layout.activity_trips);
         tripList = new ArrayList<>();
         tripList.add(new TripInfo("Trip to Hue"));
+        Log.d("btag", "sadfasg");
         lvTrips = (ListView) findViewById(R.id.lvTrips);
         TripListAdapter customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
         lvTrips.setAdapter(customAdaper);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("btag", "fck");
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
                 startActivity(intent);
             }
