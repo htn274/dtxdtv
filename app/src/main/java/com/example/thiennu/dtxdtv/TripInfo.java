@@ -1,7 +1,12 @@
 package com.example.thiennu.dtxdtv;
 
+import java.util.ArrayList;
+
 public class TripInfo {
     private String trip_name;
+    ArrayList<String> members;
+    String fromDate;
+    String toDate;
 
 
     public TripInfo(String trip_name) {

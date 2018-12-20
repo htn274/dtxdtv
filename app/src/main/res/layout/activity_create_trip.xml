@@ -26,18 +26,6 @@
         android:layout_height="wrap_content"
         android:hint="Members list"/>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Destination"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType=""
-        android:hint="Where do you want to go?"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
