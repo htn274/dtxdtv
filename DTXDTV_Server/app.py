@@ -1,5 +1,6 @@
 from flask import Flask, flash, request, jsonify
 import json
+import datetime
 
 app = Flask(__name__)
 
@@ -11,36 +12,46 @@ users = [
     }
 ]
 
-# plans = [
-#     {
-#         "members": [
+plans = [
+    {
+        "group_id": "",
+        "group_name": "",
+        "start": "",
+        "end": "",
+        "members": [
 
-#         ],
-#         "discussion": [
-#             {
-#                 "user": "",
-#                 "send_time": ""
-#             }
-#         ],
-#         "places": [
-#             {
-#                 "name": "",
-#                 "time": ""
-#             }
-#         ]
-#     }
-# ]
+        ],
+        "discussion": [
+            {
+                "user": "",
+                "time": ""
+            }
+        ],
+        "places": [
+            {
+                "name": "",
+                "time": ""
+            }
+        ]
+    }
+]
 
 
-def save_users():
+def save_json():
     global users
     with open("users.json", "w") as fp:
         fp.write(json.dumps(users))
+    global plans
+    with open("plans.json", "w") as fp:
+        fp.write(json.dumps(plans))
 
-def load_users():
+def load_json():
     global users
     with open("users.json", "r") as fp:
         users = json.loads(fp.read())
+    global plans
+    with open("plans.json", "r") as fp:
+        plans = json.loads(fp.read())
        
 @app.route("/signup", methods = ["POST"])
 def sign_up():
@@ -49,7 +60,7 @@ def sign_up():
         if (content["phone_number"] == user["phone_number"]):
             return jsonify({"ok": False})
     users.append(content)
-    save_users()
+    save_json()
     return jsonify({"ok": True})
 
 @app.route("/signin", methods = ["POST"])
@@ -61,7 +72,25 @@ def sign_in():
             return jsonify({"ok": True})
     return jsonify({"ok": False})
 
+@app.route("/creategroup", methods = ["POST"])
+def create_group():
+    content = request.json
+
+    group_id = datetime.datetime.now().isoformat()
+    plan = {
+        "group_id": group_id,
+        "group_name": content["group_name"],
+        "start": content["start"],
+        "end": content["end"],
+        "members": content["members"],
+        "discussion": [],
+        "places": []
+    }
+    plans.append(plan)
+    save_json()
+    return jsonify({"group_id": group_id})
+
 
 if (__name__ == '__main__'):
-    load_users()
+    load_json()
     app.run(host = "0.0.0.0", port = 8174)
