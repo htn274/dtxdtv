@@ -11,21 +11,25 @@ users = [
     }
 ]
 
-plans = [
-    {
-        "members": [
+# plans = [
+#     {
+#         "members": [
 
-        ],
-        "discussion": [
-            {
-                "user": "",
-                "send time": ""
-            }
-        ]
-
-    }
-]
-
+#         ],
+#         "discussion": [
+#             {
+#                 "user": "",
+#                 "send_time": ""
+#             }
+#         ],
+#         "places": [
+#             {
+#                 "name": "",
+#                 "time": ""
+#             }
+#         ]
+#     }
+# ]
 
 
 def save_users():
@@ -38,7 +42,6 @@ def load_users():
     with open("users.json", "r") as fp:
         users = json.loads(fp.read())
        
-
 @app.route("/signup", methods = ["POST"])
 def sign_up():
     content = request.json
@@ -57,6 +60,7 @@ def sign_in():
             content["password"] == user["password"]):
             return jsonify({"ok": True})
     return jsonify({"ok": False})
+
 
 if (__name__ == '__main__'):
     load_users()
