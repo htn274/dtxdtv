@@ -117,37 +117,22 @@ def add_chat():
             return jsonify({"ok": True})
     return jsonify({"ok": False})
 
-@app.route("/viewmembers", methods = ["POST"])
-def view_members():
+@app.route("/viewgroup", methods = ["POST"])
+def view_group():
     content = request.json
     for plan in plans:
         if (plan["group_id"] == content["group_id"]):
-            return jsonify(plan["members"])
-    return jsonify([])
+            return jsonify({"ok": True, "data": plan})
+    return jsonify({"ok": False, "data": {}})
 
 @app.route("/viewmember", methods = ["POST"])
 def view_member():
     content = request.json
     for user in users:
         if (user["phone_number"] == content["user"]):
-            return jsonify({"name": user["name"]})
-    return jsonify({"name": ""})
+            return jsonify({"ok": True, "name": user["name"]})
+    return jsonify({"ok": False, "name": ""})
 
-@app.route("/viewdiscussion", methods = ["POST"])
-def view_discussion():
-    content = request.json
-    for plan in plans:
-        if (plan["group_id"] == content["group_id"]):
-            return jsonify(plan["discussion"])
-    return jsonify([])
-
-@app.route("/viewplaces", methods = ["POST"])
-def view_places():
-    content = request.json
-    for plan in plans:
-        if (plan["group_id"] == content["group_id"]):
-            return jsonify(plan["places"])
-    return jsonify([])
 
 if (__name__ == '__main__'):
     load_json()
