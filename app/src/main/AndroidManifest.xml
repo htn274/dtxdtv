@@ -25,7 +25,11 @@
             android:name=".groupTrip"
             android:label="@string/title_activity_group_trip"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".createTrip"></activity>
+        <activity android:name=".createTrip" />
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
