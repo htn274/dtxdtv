@@ -133,6 +133,21 @@ def view_member():
             return jsonify({"name": user["name"]})
     return jsonify({"name": ""})
 
+@app.route("/viewdiscussion", methods = ["POST"])
+def view_discussion():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            return jsonify(plan["discussion"])
+    return jsonify([])
+
+@app.route("/viewplaces", methods = ["POST"])
+def view_places():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            return jsonify(plan["places"])
+    return jsonify([])
 
 if (__name__ == '__main__'):
     load_json()
