@@ -30,6 +30,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.trip_info, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.tripName = (TextView) convertView.findViewById(R.id.tripName);
+            convertView.setTag(viewHolder);
         }
         else{
             viewHolder = (ViewHolder) convertView.getTag();

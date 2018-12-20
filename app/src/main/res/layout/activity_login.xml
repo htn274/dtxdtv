@@ -44,7 +44,7 @@
         tools:layout_editor_absoluteX="100dp"
         tools:layout_editor_absoluteY="298dp"
         android:id="@+id/editText_password"
-        android:inputType="text"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:layout_width="match_parent"

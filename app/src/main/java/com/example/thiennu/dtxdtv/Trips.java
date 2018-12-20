@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Trips extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
+        getSupportActionBar().setTitle("My Trips");
         tripList = new ArrayList<>();
         tripList.add(new TripInfo("Trip to Hue"));
         lvTrips = (ListView) findViewById(R.id.lvTrips);
@@ -25,7 +27,9 @@ public class Trips extends AppCompatActivity {
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), String.valueOf(position),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
+
                 startActivity(intent);
             }
         });
