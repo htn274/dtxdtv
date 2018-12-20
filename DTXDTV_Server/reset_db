@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+echo [] > users.json
+echo [] > plans.json
