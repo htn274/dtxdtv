@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login"
+    android:background="@mipmap/background"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:orientation="vertical"
+    android:alpha="0.7"
+    >
+
+    <ImageView
+        android:layout_width="146dp"
+        android:layout_height="146dp"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="50dp"
+        android:paddingBottom="15dp"/>
+
+    <EditText
+        android:layout_width="214dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border_edittext"
+        android:hint="Phone number"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="243dp"
+        android:id="@+id/editText_phonenumber"
+        android:inputType="number"/>
+
+    <EditText
+        android:layout_width="214dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border_edittext"
+        android:padding="5dp"
+        android:hint="Password"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="298dp"
+        android:id="@+id/editText_password"
+        android:inputType="text"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDarkGreen"
+        android:text="Login"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="372dp"
+        android:id="@+id/btn_login"
+        android:onClick="loginOnlick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Creat an account? Sign up"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="450dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView_signup"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
