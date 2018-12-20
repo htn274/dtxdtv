@@ -75,7 +75,6 @@ def sign_in():
 @app.route("/creategroup", methods = ["POST"])
 def create_group():
     content = request.json
-
     group_id = datetime.datetime.now().isoformat()
     plan = {
         "group_id": group_id,
@@ -89,6 +88,19 @@ def create_group():
     plans.append(plan)
     save_json()
     return jsonify({"group_id": group_id})
+
+@app.route("/addplace", methods = ["POST"])
+def add_place():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            plan["places"].append({
+                "name": content["name"],
+                "time": content["time"]
+            })
+            save_json()
+            return jsonify({"ok": True})
+    return jsonify({"ok": False})
 
 
 if (__name__ == '__main__'):
