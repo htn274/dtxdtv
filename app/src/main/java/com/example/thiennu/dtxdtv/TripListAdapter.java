@@ -32,7 +32,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
             viewHolder.tripName = (TextView) convertView.findViewById(R.id.tripName);
             convertView.setTag(viewHolder);
         }
-        else{
+        else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
