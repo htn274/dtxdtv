@@ -23,6 +23,7 @@ plans = [
         ],
         "discussion": [
             {
+                "text": "",
                 "user": "",
                 "time": ""
             }
@@ -101,6 +102,36 @@ def add_place():
             save_json()
             return jsonify({"ok": True})
     return jsonify({"ok": False})
+
+@app.route("/addchat", methods = ["POST"])
+def add_chat():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            plan["discussion"].append({
+                "text": content["text"],
+                "user": content["user"],
+                "time": datetime.datetime.now().timestamp()
+            })
+            save_json()
+            return jsonify({"ok": True})
+    return jsonify({"ok": False})
+
+@app.route("/viewmembers", methods = ["POST"])
+def view_members():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            return jsonify(plan["members"])
+    return jsonify([])
+
+@app.route("/viewmember", methods = ["POST"])
+def view_member():
+    content = request.json
+    for user in users:
+        if (user["phone_number"] == content["user"]):
+            return jsonify({"name": user["name"]})
+    return jsonify({"name": ""})
 
 
 if (__name__ == '__main__'):
