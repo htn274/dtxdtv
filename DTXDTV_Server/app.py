@@ -81,7 +81,7 @@ def groups_of_a_user():
     data = []
     for plan in plans:
         if (content["user"] in plan["members"]):
-            data.append(plan["group_id"])
+            data.append(plan)
     
     if (len(data) != 0):
         return jsonify({"ok": True, "data": data})
