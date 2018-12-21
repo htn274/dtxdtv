@@ -91,7 +91,7 @@ public class LocalData {
         try {
             String url = "http://167.99.138.220:8174/creategroup";
             JSONObject data = new JSONObject().put("group_name", tripName)
-                    .put("members", memberList)
+                    .put("members", new JSONArray(memberList))
                     .put("start", fromData)
                     .put("end", toDate);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
@@ -114,7 +114,7 @@ public class LocalData {
 
     static void getGroupOfUser(Context context, String phone, final MyCallback<ArrayList<TripInfo>> cb) {
         try {
-            String url = "http://167.99.138.220:8174/creategroup";
+            String url = "http://167.99.138.220:8174/groupsofauser";
             JSONObject data = new JSONObject().put("user", phone);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -132,7 +132,7 @@ public class LocalData {
                             ArrayList<String> members = new ArrayList<>();
                             JSONArray jsonMembers = obj.getJSONArray("members");
                             for (int j = 0; j < jsonMembers.length(); j++) {
-                                members.add(jsonMembers.getString(i));
+                                members.add(jsonMembers.getString(j));
                             }
                             TripInfo info = new TripInfo(name);
                             info.id = id;

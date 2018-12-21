@@ -6,6 +6,7 @@ import android.media.ExifInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -43,9 +44,14 @@ public class createTrip extends Activity implements View.OnClickListener {
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
         fromDateEtxt.requestFocus();
         createButton = ((Button)findViewById(R.id.btn_create));
+        createButton.setOnClickListener((View.OnClickListener)this);
 
         toDateEtxt = (EditText) findViewById(R.id.editText_dateTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
+
+        memberList = (EditText) findViewById(R.id.editText_memberslist);
+        memberList.setText(dashboard.phone);
+        tripName = (EditText) findViewById(R.id.editText_tripName);
     }
 
     private void setDateTimeField() {
@@ -83,17 +89,17 @@ public class createTrip extends Activity implements View.OnClickListener {
             toDatePickerDialog.show();
         }
         else if (view == createButton){
-            if (tripName.getText().equals("")) {
-                Toast.makeText(getApplicationContext(), "Trip name must not be empty", Toast.LENGTH_SHORT);
+            if (TextUtils.isEmpty(tripName.getText().toString())) {
+                tripName.setError("Trip name must not be empty");
             }
-//            else if (memberList.getText().equals("")) {
-//                Toast.makeText(getApplicationContext(), "Member list must not be empty", Toast.LENGTH_SHORT);
-//            }
-            else if (fromDateEtxt.getText().equals("")) {
-                Toast.makeText(getApplicationContext(), "Trip name must not be empty", Toast.LENGTH_SHORT);
+            else if (TextUtils.isEmpty((memberList.getText().toString()))) {
+                memberList.setError("Trip name must not be empty");
             }
-            else if (toDateEtxt.getText().equals("")) {
-                Toast.makeText(getApplicationContext(), "Trip name must not be empty", Toast.LENGTH_SHORT);
+            else if (TextUtils.isEmpty((fromDateEtxt.getText().toString()))) {
+                fromDateEtxt.setError("Trip name must not be empty");
+            }
+            else if (TextUtils.isEmpty((toDateEtxt.getText().toString()))) {
+                toDateEtxt.setError("Trip name must not be empty");
             }
             else {
                 LocalData.createTrip(
@@ -108,7 +114,9 @@ public class createTrip extends Activity implements View.OnClickListener {
                                     Toast.makeText(getApplicationContext(), "Create trip failed, please try again", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Toast.makeText(getApplicationContext(), "Create trip succeed, please don't try again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Create trip succeed", Toast.LENGTH_SHORT).show();
+//                                    Trips.customAdaper.notifyDataSetChanged();
+                                    finish();
                                 }
                             }
                         });
