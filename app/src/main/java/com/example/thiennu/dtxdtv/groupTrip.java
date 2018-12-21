@@ -113,6 +113,8 @@ public class groupTrip extends AppCompatActivity {
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_group_trip_plan, container, false);
                     break;
+                case 3:
+                    break;
             }
             return rootView;
         }
