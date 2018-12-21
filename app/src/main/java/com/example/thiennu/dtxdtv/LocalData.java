@@ -110,4 +110,8 @@ public class LocalData {
             assert 1 == 0;
         }
     }
+
+    static void getGroupOfUser(Context context, String phone, final MyCallback<ArrayList<TripInfo>> cb) {
+        cb.call(new ArrayList<TripInfo>());
+    }
 }
