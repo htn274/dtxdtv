@@ -23,6 +23,7 @@ plans = [
         ],
         "discussion": [
             {
+                "text": "",
                 "user": "",
                 "time": ""
             }
@@ -72,6 +73,24 @@ def sign_in():
             return jsonify({"ok": True})
     return jsonify({"ok": False})
 
+@app.route("/groupsofauser", methods = ["POST"])
+def groups_of_a_user():
+    content = request.json
+    data = []
+    for plan in plans:
+        check = False
+        for user in plan["members"]:
+            if (user == content["user"]):
+                check = True
+                break
+        if (check):
+            data.append(plan["group_id"])
+    
+    if (len(data) != 0):
+        return jsonify({"ok": True, "data": data})
+    else:
+        return jsonify({"ok": False, "data": []})
+    
 @app.route("/creategroup", methods = ["POST"])
 def create_group():
     content = request.json
@@ -101,6 +120,36 @@ def add_place():
             save_json()
             return jsonify({"ok": True})
     return jsonify({"ok": False})
+
+@app.route("/addchat", methods = ["POST"])
+def add_chat():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            plan["discussion"].append({
+                "text": content["text"],
+                "user": content["user"],
+                "time": datetime.datetime.now().timestamp()
+            })
+            save_json()
+            return jsonify({"ok": True})
+    return jsonify({"ok": False})
+
+@app.route("/viewgroup", methods = ["POST"])
+def view_group():
+    content = request.json
+    for plan in plans:
+        if (plan["group_id"] == content["group_id"]):
+            return jsonify({"ok": True, "data": plan})
+    return jsonify({"ok": False, "data": {}})
+
+@app.route("/viewmember", methods = ["POST"])
+def view_member():
+    content = request.json
+    for user in users:
+        if (user["phone_number"] == content["user"]):
+            return jsonify({"ok": True, "name": user["name"]})
+    return jsonify({"ok": False, "name": ""})
 
 
 if (__name__ == '__main__'):
