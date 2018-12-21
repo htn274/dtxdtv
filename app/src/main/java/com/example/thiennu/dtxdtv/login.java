@@ -31,41 +31,17 @@ public class login extends AppCompatActivity {
             public void onClick(final View v) {
                 final String phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                JsonObjectRequest stringRequest = null;
-                try {
-                    stringRequest = new JsonObjectRequest(
-                            Request.Method.POST,
-                            "http://167.99.138.220:8174/signin",
-                            new JSONObject().put("phone_number", phone).put("password", pass),
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        Log.d("btag", response.toString());
-                                        if (response.getBoolean("ok")) {
-                                            loginOnlick(v);
-                                            LocalData.phoneNumber = phone;
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(),
-                                                "Incorrect phone number or password", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.d("btag", "rjp");
-                                }});
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                requestQueue.add(stringRequest);
+                LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
+                    @Override
+                    public void call(Boolean response) {
+                        if (response) {
+                            loginOnlick(v);
+                            LocalData.phoneNumber = phone;
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
         ((Button)findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {

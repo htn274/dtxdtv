@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PlanAdapter extends ArrayAdapter<Plan> {
-    ArrayList<Plan> mData;
+public class PlanAdapter extends ArrayAdapter<Place> {
+    ArrayList<Place> mData;
     Context mContext;
-    public PlanAdapter(@NonNull Context context, int resource, ArrayList<Plan> data) {
+    public PlanAdapter(@NonNull Context context, int resource, ArrayList<Place> data) {
         super(context, resource);
         this.mData = data;
         this.mContext = context;
@@ -32,12 +32,12 @@ public class PlanAdapter extends ArrayAdapter<Plan> {
 
     private View createItemViewAt(int position) {
         View view = createViewByLayoutId(R.layout.plan_layout);
-        Plan itemData = getItem(position);
+        Place itemData = getItem(position);
         bindItemDataToView(itemData, view);
         return view;
     }
 
-    private void bindItemDataToView(Plan itemData, View view) {
+    private void bindItemDataToView(Place itemData, View view) {
         ((TextView)view.findViewById(R.id.textViewPlanName)).setText(itemData.name);
         ((TextView)view.findViewById(R.id.textViewTime)).setText(itemData.time);
     }
