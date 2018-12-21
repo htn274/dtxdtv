@@ -57,6 +57,8 @@ def load_json():
 @app.route("/signup", methods = ["POST"])
 def sign_up():
     content = request.json
+    if (content["phone_number"] == "" or content["name"] == "" or content["password"] == ""):
+        return jsonify({"ok": False}) 
     for user in users:
         if (content["phone_number"] == user["phone_number"]):
             return jsonify({"ok": False})
@@ -78,12 +80,7 @@ def groups_of_a_user():
     content = request.json
     data = []
     for plan in plans:
-        check = False
-        for user in plan["members"]:
-            if (user == content["user"]):
-                check = True
-                break
-        if (check):
+        if (content["user"] in plan["members"]):
             data.append(plan["group_id"])
     
     if (len(data) != 0):
