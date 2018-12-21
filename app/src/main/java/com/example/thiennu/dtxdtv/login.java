@@ -49,7 +49,8 @@ public class login extends AppCompatActivity {
                                             LocalData.phoneNumber = phone;
                                         }
                                         else {
-                                            Toast.makeText(getApplicationContext(),"Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(),
+                                                "Incorrect phone number or password", Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
