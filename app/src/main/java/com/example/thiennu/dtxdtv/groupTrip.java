@@ -105,7 +105,15 @@ public class groupTrip extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_group_trip_chat, container, false);
+            View rootView = null;
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)){
+                case 1:
+                    rootView = inflater.inflate(R.layout.fragment_group_trip_chat, container, false);
+                    break;
+                case 2:
+                    rootView = inflater.inflate(R.layout.fragment_group_trip_plan, container, false);
+                    break;
+            }
             return rootView;
         }
     }

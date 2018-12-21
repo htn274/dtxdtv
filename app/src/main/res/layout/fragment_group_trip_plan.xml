@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".group_trip_plan"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Destination"
+            android:id="@+id/edittext_destination"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:hint="Time"
+                android:id="@+id/editText_time"
+                android:clickable="true"
+                android:focusable="false"
+                android:editable="false"/>
+
+            <EditText
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:hint="Date"
+                android:id="@+id/editText_date"
+                android:focusable="false"
+                android:editable="false"
+                android:clickable="true"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+</LinearLayout>
