@@ -41,6 +41,7 @@ public class Trips extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
                 intent.putExtra("groupName", ((TripInfo)lvTrips.getItemAtPosition(position)).getTrip_name());
+                intent.putExtra("groupId", ((TripInfo)lvTrips.getItemAtPosition(position)).id);
                 startActivity(intent);
             }
         });

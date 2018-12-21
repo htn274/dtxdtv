@@ -157,6 +157,12 @@ def view_members():
             res.append({"phone_number": user["phone_number"], "name": user["name"]})
     return jsonify({"users": res})
 
+@app.route('/usersingroup', methods = ['POST'])
+def users_in_group():
+    group_id = request.json['group_id']
+    for plan in plans:
+        if plan['group_id'] == group_id:
+            return jsonify({'users': plan['members']})
 
 if (__name__ == '__main__'):
     load_json()

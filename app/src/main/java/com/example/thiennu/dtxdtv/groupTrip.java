@@ -1,5 +1,6 @@
 package com.example.thiennu.dtxdtv;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,7 +32,7 @@ public class groupTrip extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
+    String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,9 @@ public class groupTrip extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("groupName"));
+        Intent intent = getIntent();
+        toolbar.setTitle(intent.getStringExtra("groupName"));
+        groupId = intent.getStringExtra("groupId");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -141,7 +144,7 @@ public class groupTrip extends AppCompatActivity {
                 case 2:
                     return new group_trip_plan();
                 case 3:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new group_trip_members(groupId);
             }
             return null;
         }

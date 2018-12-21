@@ -181,4 +181,33 @@ public class LocalData {
             e.printStackTrace();
         }
     }
+
+    public static void getUsersInGroup(Context context, String groupId, final MyCallback<ArrayList<User>> cb) {
+        try {
+            String url = "http://167.99.138.220:8174/usersingroup";
+            JSONObject data = new JSONObject().put("group_id", groupId);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray arr = response.getJSONArray("users");
+                        ArrayList<User> res = new ArrayList<>();
+                        for (int i = 0; i < arr.length(); i++) {
+                            User u = new User();
+                            JSONObject o = arr.getJSONObject(i);
+                            u.name = o.getString("name");
+                            u.phone_number = o.getString("phone_number");
+                            res.add(u);
+                        }
+                        cb.call(res);
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+    } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
