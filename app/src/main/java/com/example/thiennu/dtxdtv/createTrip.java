@@ -100,9 +100,16 @@ public class createTrip extends Activity implements View.OnClickListener {
                         tripName.getText().toString(),
                         memberList.getText().toString().split(" "),
                         fromDateEtxt.getText().toString(),
-                        toDateEtxt.getText().toString(), new LocalData().MyCallback<Boolean>() {
-
-                });
+                        toDateEtxt.getText().toString(), new MyCallback<String>() {
+                            @Override
+                            public void call(String res) {
+                                TripInfo trip = new TripInfo(tripName.getText().toString());
+                                trip.fromDate = fromDateEtxt.getText().toString();
+                                trip.toDate = toDateEtxt.getText().toString();
+                                trip.id = res;
+                                LocalData.tripList.add(trip);
+                            }
+                        });
 
             }
         }

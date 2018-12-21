@@ -49,7 +49,7 @@ interface MyCallback<T> {
 
 public class LocalData {
     static public String phoneNumber;
-
+    static public ArrayList<TripInfo> tripList = new ArrayList<>();
 
     static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);

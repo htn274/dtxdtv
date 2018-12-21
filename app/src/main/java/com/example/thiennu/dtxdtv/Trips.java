@@ -20,8 +20,8 @@ public class Trips extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
         getSupportActionBar().setTitle("My Trips");
-        tripList = new ArrayList<>();
-        tripList.add(new TripInfo("Trip to Hue"));
+        tripList = LocalData.tripList;
+//        tripList.add(new TripInfo("Trip to Hue"));
         Log.d("btag", "sadfasg");
         lvTrips = (ListView) findViewById(R.id.lvTrips);
         TripListAdapter customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
