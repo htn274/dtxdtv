@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 public class login extends AppCompatActivity {
 
+    public String phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class login extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final String phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
+                phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
                 LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
                     @Override
@@ -55,6 +57,7 @@ public class login extends AppCompatActivity {
 
     public void loginOnlick(View view) {
         Intent intent = new Intent(this, dashboard.class);
+        intent.putExtra("phone", phone);
         startActivity(intent);
         finish();
     }

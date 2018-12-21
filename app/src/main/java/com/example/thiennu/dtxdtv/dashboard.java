@@ -1,5 +1,6 @@
 package com.example.thiennu.dtxdtv;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 public class dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String phone;
+
     ArrayList<DashModel> dashModelArrayList;
     private RecyclerView recyclerView;
     DashAdapter dashAdapter;
@@ -31,6 +34,10 @@ public class dashboard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        Intent intent = this.getIntent();
+        phone = intent.getStringExtra("phone");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

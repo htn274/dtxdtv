@@ -26,9 +26,19 @@ public class Trips extends AppCompatActivity {
 //                tripList = res;
 //            }
 //        });
-//        tripList.add(new TripInfo("Trip to Hue"));
-        Log.d("btag", "sadfasg");
+        tripList = new ArrayList<>();
+        getTripList();
+
         lvTrips = (ListView) findViewById(R.id.lvTrips);
+        if (tripList.size() > 0){
+            setLvTrips();
+        }
+
+
+
+    }
+
+    public void setLvTrips(){
         TripListAdapter customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
         lvTrips.setAdapter(customAdaper);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -37,6 +47,17 @@ public class Trips extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
                 intent.putExtra("groupName", ((TripInfo)lvTrips.getItemAtPosition(position)).getTrip_name());
                 startActivity(intent);
+            }
+        });
+    }
+
+
+    public void getTripList(){
+        String phone = dashboard.phone;
+        LocalData.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
+            @Override
+            public void call(ArrayList<TripInfo> res) {
+                tripList = res;
             }
         });
 

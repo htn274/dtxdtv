@@ -2,6 +2,7 @@ package com.example.thiennu.dtxdtv;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,6 +45,13 @@ public class group_trip_plan extends Fragment {
         super.onCreate(savedInstanceState);
         edit_date = ((EditText)getActivity().findViewById(R.id.editText_date));
         edit_date.setText("sfgsdfgsdh");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        edit_date = (EditText) view.findViewById(R.id.editText_date);
+        edit_date.setText("Hello");
     }
 
     @Override

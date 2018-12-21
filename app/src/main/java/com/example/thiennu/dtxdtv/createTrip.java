@@ -76,6 +76,7 @@ public class createTrip extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
         if(view == fromDateEtxt) {
             fromDatePickerDialog.show();
         } else if(view == toDateEtxt) {
@@ -85,9 +86,9 @@ public class createTrip extends Activity implements View.OnClickListener {
             if (tripName.getText().equals("")) {
                 Toast.makeText(getApplicationContext(), "Trip name must not be empty", Toast.LENGTH_SHORT);
             }
-            else if (memberList.getText().equals("")) {
-                Toast.makeText(getApplicationContext(), "Member list must not be empty", Toast.LENGTH_SHORT);
-            }
+//            else if (memberList.getText().equals("")) {
+//                Toast.makeText(getApplicationContext(), "Member list must not be empty", Toast.LENGTH_SHORT);
+//            }
             else if (fromDateEtxt.getText().equals("")) {
                 Toast.makeText(getApplicationContext(), "Trip name must not be empty", Toast.LENGTH_SHORT);
             }
