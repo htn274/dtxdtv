@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -112,6 +113,44 @@ public class LocalData {
     }
 
     static void getGroupOfUser(Context context, String phone, final MyCallback<ArrayList<TripInfo>> cb) {
-        cb.call(new ArrayList<TripInfo>());
+        try {
+            String url = "http://167.99.138.220:8174/creategroup";
+            JSONObject data = new JSONObject().put("user", phone);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray arr = response.getJSONArray("data");
+                        int len = arr.length();
+                        ArrayList<TripInfo> res = new ArrayList<>();
+                        for (int i=0; i<len; i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            String id = obj.getString("group_id");
+                            String name = obj.getString("group_name");
+                            String start = obj.getString("start");
+                            String end = obj.getString("end");
+                            ArrayList<String> members = new ArrayList<>();
+                            JSONArray jsonMembers = obj.getJSONArray("members");
+                            for (int j = 0; j < jsonMembers.length(); j++) {
+                                members.add(jsonMembers.getString(i));
+                            }
+                            TripInfo info = new TripInfo(name);
+                            info.id = id;
+                            info.members = members;
+                            info.fromDate = start;
+                            info.toDate = end;
+                            res.add(info);
+                        }
+                        cb.call(res);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        assert 1 == 0;
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            assert 1 == 0;
+        }
     }
 }
