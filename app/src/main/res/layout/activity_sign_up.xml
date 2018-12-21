@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
-        android:id="@+id/editText_phonenumber"/>
+        android:id="@+id/editText_phonenumber"
+        android:inputType="number"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:id="@+id/editText_password"/>
+        android:id="@+id/editText_password"
+        android:inputType="textPassword"/>
 
     <Button
         android:layout_width="match_parent"

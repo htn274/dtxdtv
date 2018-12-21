@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,7 +47,7 @@ public class login extends AppCompatActivity {
                 });
             }
         });
-        ((Button)findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
+        ((TextView)findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);

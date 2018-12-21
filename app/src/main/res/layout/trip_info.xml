@@ -8,14 +8,16 @@
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:id="@+id/tripImage"/>
+        android:id="@+id/tripImage"
+        android:src="@drawable/ic_group"
+        android:layout_marginRight="10dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tripName"
+        android:layout_width="234dp"
         android:layout_height="wrap_content"
-        android:text="Tên nhóm"
-        android:paddingRight="150dp"
-        android:id="@+id/tripName"/>
+        android:layout_marginRight="10dp"
+        android:text="Tên nhóm" />
 
     <Button
         android:layout_width="wrap_content"
