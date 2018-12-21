@@ -103,11 +103,12 @@ public class createTrip extends Activity implements View.OnClickListener {
                         toDateEtxt.getText().toString(), new MyCallback<String>() {
                             @Override
                             public void call(String res) {
-                                TripInfo trip = new TripInfo(tripName.getText().toString());
-                                trip.fromDate = fromDateEtxt.getText().toString();
-                                trip.toDate = toDateEtxt.getText().toString();
-                                trip.id = res;
-                                LocalData.tripList.add(trip);
+                                if (res == null) {
+                                    Toast.makeText(getApplicationContext(), "Create trip failed, please try again", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Create trip succeed, please don't try again", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
 

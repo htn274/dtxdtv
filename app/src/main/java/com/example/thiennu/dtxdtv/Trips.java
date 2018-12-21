@@ -20,7 +20,12 @@ public class Trips extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
         getSupportActionBar().setTitle("My Trips");
-        tripList = LocalData.tripList;
+//        LocalData.getTrips(getApplicationContext(), LocalData.phoneNumber, new MyCallback<ArrayList<TripInfo>>() {
+//            @Override
+//            public void call(ArrayList<TripInfo> res) {
+//                tripList = res;
+//            }
+//        });
 //        tripList.add(new TripInfo("Trip to Hue"));
         Log.d("btag", "sadfasg");
         lvTrips = (ListView) findViewById(R.id.lvTrips);
