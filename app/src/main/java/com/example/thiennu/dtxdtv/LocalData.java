@@ -48,69 +48,66 @@ interface MyCallback<T> {
 public class LocalData {
     static public String phoneNumber;
 
-
-    static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
+    static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest stringRequest = null;
-        try {
-            stringRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    "http://167.99.138.220:8174/signin",
-                    new JSONObject().put("phone_number", phone).put("password", pass),
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                cb.call(response.getBoolean("ok"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                assert 1 == 0;
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("btag", "rjp");
-                        }
-                    });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        stringRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                data,
+                callback,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("btag", "rjp");
+                    }
+                });
         requestQueue.add(stringRequest);
     }
 
-    static void createTrip(Context context, String tripName, String[] memberList, String fromData, String toDate, final MyCallback<String> cb) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest stringRequest = null;
+    static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
         try {
-            stringRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    "http://167.99.138.220:8174/creategroup",
-                    new JSONObject().put("group_name", tripName)
-                            .put("members", memberList)
-                            .put("start", fromData)
-                            .put("end", toDate),
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                cb.call(response.getString("group_id"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                assert 1 == 0;
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("btag", "rjp");
-                        }
-                    });
+            String url = "http://167.99.138.220:8174/signin";
+            JSONObject data = new JSONObject().put("phone_number", phone).put("password", pass);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        cb.call(response.getBoolean("ok"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        assert 1 == 0;
+                    }
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
+            assert 1 == 0;
         }
-        requestQueue.add(stringRequest);
+    }
+
+    static void createTrip(Context context, String tripName, String[] memberList, String fromData, String toDate, final MyCallback<String> cb) {
+        try {
+            String url = "http://167.99.138.220:8174/creategroup";
+            JSONObject data = new JSONObject().put("group_name", tripName)
+                    .put("members", memberList)
+                    .put("start", fromData)
+                    .put("end", toDate);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        cb.call(response.getString("group_id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        assert 1 == 0;
+                    }
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            assert 1 == 0;
+        }
     }
 }
