@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class TripInfo {
     private String trip_name;
+    String id;
     ArrayList<String> members;
     String fromDate;
     String toDate;

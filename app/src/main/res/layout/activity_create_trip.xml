@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Create"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:id="@+id/btn_create"/>
 
 </LinearLayout>

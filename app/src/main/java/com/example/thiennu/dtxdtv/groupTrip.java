@@ -39,6 +39,7 @@ public class groupTrip extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(getIntent().getStringExtra("groupName"));
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -112,6 +113,8 @@ public class groupTrip extends AppCompatActivity {
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_group_trip_plan, container, false);
+                    break;
+                case 3:
                     break;
             }
             return rootView;
