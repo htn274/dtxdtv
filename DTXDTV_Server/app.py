@@ -148,7 +148,7 @@ def view_member():
             return jsonify({"ok": True, "name": user["name"]})
     return jsonify({"ok": False, "name": ""})
 
-@app.route("viewmembers", methods = ["POST"])
+@app.route("/viewmembers", methods = ["POST"])
 def view_members():
     content = request.json
     res = []
