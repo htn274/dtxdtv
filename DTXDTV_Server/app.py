@@ -73,6 +73,24 @@ def sign_in():
             return jsonify({"ok": True})
     return jsonify({"ok": False})
 
+@app.route("/groupsofauser", methods = ["POST"])
+def groups_of_a_user():
+    content = request.json
+    data = []
+    for plan in plans:
+        check = False
+        for user in plan["members"]:
+            if (user == content["user"]):
+                check = True
+                break
+        if (check):
+            data.append(plan["group_id"])
+    
+    if (len(data) != 0):
+        return jsonify({"ok": True, "data": data})
+    else:
+        return jsonify({"ok": False, "data": []})
+    
 @app.route("/creategroup", methods = ["POST"])
 def create_group():
     content = request.json
