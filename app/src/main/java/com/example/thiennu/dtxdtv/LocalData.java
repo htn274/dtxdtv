@@ -48,7 +48,6 @@ interface MyCallback<T> {
 public class LocalData {
     static public String phoneNumber;
 
-
     static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest stringRequest = null;

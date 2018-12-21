@@ -20,8 +20,13 @@ public class Trips extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
         getSupportActionBar().setTitle("My Trips");
-        tripList = new ArrayList<>();
-        tripList.add(new TripInfo("Trip to Hue"));
+//        LocalData.getTrips(getApplicationContext(), LocalData.phoneNumber, new MyCallback<ArrayList<TripInfo>>() {
+//            @Override
+//            public void call(ArrayList<TripInfo> res) {
+//                tripList = res;
+//            }
+//        });
+//        tripList.add(new TripInfo("Trip to Hue"));
         Log.d("btag", "sadfasg");
         lvTrips = (ListView) findViewById(R.id.lvTrips);
         TripListAdapter customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
@@ -30,10 +35,11 @@ public class Trips extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
-
+                intent.putExtra("groupName", ((TripInfo)lvTrips.getItemAtPosition(position)).getTrip_name());
                 startActivity(intent);
             }
         });
+
     }
 
     public void addGroup(View view) {
