@@ -43,15 +43,15 @@ class Plan {
     public ArrayList<Place> places;
 }
 
-interface MyCallback {
-    void call(JSONObject json);
+interface MyCallback<T> {
+    void call(T res);
 }
 
 public class LocalData {
     static public String phoneNumber;
 
 
-    static void Login(Context context, String phone, String pass, final MyCallback cb) {
+    static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest stringRequest = null;
         try {
@@ -62,7 +62,12 @@ public class LocalData {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            cb.call(response);
+                            try {
+                                cb.call(response.getBoolean("ok"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                assert 1 == 0;
+                            }
                         }
                     },
                     new Response.ErrorListener() {

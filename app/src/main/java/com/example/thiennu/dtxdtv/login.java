@@ -31,20 +31,14 @@ public class login extends AppCompatActivity {
             public void onClick(final View v) {
                 final String phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
-                LocalData.Login(getApplicationContext(), phone, pass, new MyCallback() {
+                LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
                     @Override
-                    public void call(JSONObject response) {
-                        try {
-                            Log.d("btag", response.toString());
-                            if (response.getBoolean("ok")) {
-                                loginOnlick(v);
-                                LocalData.phoneNumber = phone;
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(),"Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public void call(Boolean response) {
+                        if (response) {
+                            loginOnlick(v);
+                            LocalData.phoneNumber = phone;
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
