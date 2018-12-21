@@ -135,7 +135,15 @@ public class groupTrip extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position + 1){
+                case 1:
+                    return PlaceholderFragment.newInstance(position + 1);
+                case 2:
+                    return new group_trip_plan();
+                case 3:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
+            return null;
         }
 
         @Override
