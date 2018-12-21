@@ -123,7 +123,7 @@ public class LocalData {
                         JSONArray arr = response.getJSONArray("data");
                         int len = arr.length();
                         ArrayList<TripInfo> res = new ArrayList<>();
-                        for (int i=0; i<len; i++) {
+                        for (int i = 0; i < len; i++) {
                             JSONObject obj = arr.getJSONObject(i);
                             String id = obj.getString("group_id");
                             String name = obj.getString("group_name");
@@ -151,6 +151,34 @@ public class LocalData {
         } catch (JSONException e) {
             e.printStackTrace();
             assert 1 == 0;
+        }
+    }
+
+    static void getUsersInfo(Context context, ArrayList<String> phones, final MyCallback<ArrayList<User>> cb) {
+        try {
+            String url = "http://167.99.138.220:8174/viewmembers";
+            JSONObject data = new JSONObject().put("users", new JSONArray(phones));
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray arr = response.getJSONArray("users");
+                        ArrayList<User> res = new ArrayList<>();
+                        for (int i=0; i<arr.length(); i++) {
+                            User u = new User();
+                            JSONObject o = arr.getJSONObject(i);
+                            u.name = o.getString("name");
+                            u.phone_number = o.getString("phone_number");
+                            res.add(u);
+                        }
+                        cb.call(res);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

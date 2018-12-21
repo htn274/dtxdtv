@@ -148,6 +148,15 @@ def view_member():
             return jsonify({"ok": True, "name": user["name"]})
     return jsonify({"ok": False, "name": ""})
 
+@app.route("viewmembers", methods = ["POST"])
+def view_members():
+    content = request.json
+    res = []
+    for user in users:
+        if user["phone_number"] in content["users"]:
+            res.append({"phone_number": user["phone_number"], "name": user["name"]})
+    return jsonify({"users": res})
+
 
 if (__name__ == '__main__'):
     load_json()
