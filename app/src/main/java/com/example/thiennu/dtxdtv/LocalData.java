@@ -30,6 +30,7 @@ class Discussion {
 class Place {
     public String name;
     public String time;
+    public String date;
 }
 
 class Plan {

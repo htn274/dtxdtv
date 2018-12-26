@@ -14,8 +14,10 @@
 
    <ImageView
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_weight="10"/>
+       android:layout_height="match_parent"
+       android:layout_weight="10"
+       android:src="@mipmap/logo"
+       android:layout_marginBottom="20dp"/>
 
     <EditText
         android:id="@+id/editText_phonenumber"
