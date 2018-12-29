@@ -30,7 +30,7 @@ class Discussion {
 class Place {
     public String name;
     public String time;
-    public String date;
+//    public String date;
 }
 
 class Plan {
@@ -85,6 +85,29 @@ public class LocalData {
         } catch (JSONException e) {
             e.printStackTrace();
             assert 1 == 0;
+        }
+    }
+
+    static void AddPlace(Context context, String groupID, String name, String time, final MyCallback<Boolean> cb){
+        try {
+            String url = "";
+            JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        cb.call(response.getBoolean("ok"));
+                    }
+                    catch (JSONException e){
+                        e.printStackTrace();
+                        assert 1 == 0;
+                    }
+                }
+            });
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+            assert  1 == 0;
         }
     }
 

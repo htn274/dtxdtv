@@ -142,7 +142,7 @@ public class groupTrip extends AppCompatActivity {
                 case 1:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 2:
-                    return new group_trip_plan();
+                    return new group_trip_plan(groupId);
                 case 3:
                     return new group_trip_members(groupId);
             }

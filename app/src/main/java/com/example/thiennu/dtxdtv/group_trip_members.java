@@ -1,5 +1,6 @@
 package com.example.thiennu.dtxdtv;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class group_trip_members extends Fragment {
     String groupId;
     ListView lvMembers;
     public group_trip_members() {}
+    @SuppressLint("ValidFragment")
     public group_trip_members(String groupId) {
         super();
         this.groupId = groupId;
@@ -39,7 +41,7 @@ public class group_trip_members extends Fragment {
             public void call(ArrayList<User> res) {
                 lvMembers.setAdapter(new UserAdapter(getContext(), 0, res));
             }
-        })
+        });
         return v;
     }
 

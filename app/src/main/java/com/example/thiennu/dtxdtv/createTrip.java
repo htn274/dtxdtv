@@ -115,7 +115,6 @@ public class createTrip extends Activity implements View.OnClickListener {
                                 }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Create trip succeed", Toast.LENGTH_SHORT).show();
-//                                    Trips.customAdaper.notifyDataSetChanged();
                                     finish();
                                 }
                             }
