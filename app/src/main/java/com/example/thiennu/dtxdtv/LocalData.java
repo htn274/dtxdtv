@@ -31,6 +31,14 @@ class Place {
     public String name;
     public String time;
 //    public String date;
+    public Place(){
+
+    }
+
+    public Place(String name, String time){
+        this.name = name;
+        this.time = time;
+    }
 }
 
 class Plan {
@@ -88,15 +96,17 @@ public class LocalData {
         }
     }
 
-    static void AddPlace(Context context, String groupID, String name, String time, final MyCallback<Boolean> cb){
+    static void AddPlace(Context context, final String groupID, String name, String time, final MyCallback<Boolean> cb){
         try {
-            String url = "";
+            String url = "http://167.99.138.220:8174/addplace";
             JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time);
+            Log.d("Place 1234", groupID);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
                         cb.call(response.getBoolean("ok"));
+                        Log.d("@1234", groupID);
                     }
                     catch (JSONException e){
                         e.printStackTrace();
@@ -202,6 +212,37 @@ public class LocalData {
                 }
             });
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place>> cb){
+        try{
+            String url = "http://167.99.138.220:8174/viewgroup";
+            JSONObject data = new JSONObject().put("group_id", groupID);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONObject groupInfo = response.getJSONObject("data");
+                        JSONArray arr = groupInfo.getJSONArray("places");
+                        ArrayList<Place> res = new ArrayList<>();
+                        for (int i = 0; i < arr.length(); i++){
+                            Place p = new Place();
+                            JSONObject obj = arr.getJSONObject(i);
+                            p.name = obj.getString("name");
+                            Log.d("Place 1234", p.name);
+                            p.time = obj.getString("time");
+                            res.add(p);
+                        }
+                        cb.call(res);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        catch (JSONException e){
             e.printStackTrace();
         }
     }

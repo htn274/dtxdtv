@@ -24,7 +24,6 @@ public class TimeSetter implements View.OnFocusChangeListener, TimePickerDialog.
             this.mEditText = editText;
             this.mEditText.setOnFocusChangeListener(this);
             this.mEditText.setOnClickListener(this);
-            this.mEditText.setOnTouchListener(this);
             this.mContext = context;
         }
 

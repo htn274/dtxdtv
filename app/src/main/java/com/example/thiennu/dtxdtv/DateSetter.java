@@ -26,7 +26,6 @@ public class DateSetter implements View.OnFocusChangeListener, DatePickerDialog.
             this.mEditText = editText;
             this.mEditText.setOnFocusChangeListener(this);
             this.mEditText.setOnClickListener(this);
-            this.mEditText.setOnTouchListener(this);
             this.mContext = context;
         }
 

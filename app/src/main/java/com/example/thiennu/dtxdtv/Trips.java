@@ -35,6 +35,7 @@ public class Trips extends AppCompatActivity {
 
     public void setLvTrips(){
         customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
+        customAdaper.notifyDataSetChanged();
         lvTrips.setAdapter(customAdaper);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,11 +51,9 @@ public class Trips extends AppCompatActivity {
 
     public void getTripList(){
         String phone = dashboard.phone;
-        Log.d("asdf", "hello");
         LocalData.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
             @Override
             public void call(ArrayList<TripInfo> res) {
-                Log.d("asdf", String.valueOf(res.size()));
                 tripList = res;
                 if (tripList.size() > 0){
                     setLvTrips();
@@ -63,6 +62,7 @@ public class Trips extends AppCompatActivity {
         });
 
     }
+
 
     public void addGroup(View view) {
         startActivity(new Intent(this, createTrip.class));
