@@ -2,6 +2,7 @@ package com.example.thiennu.dtxdtv;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
 
     public String groupID;
     public EditText edit_date, edit_time;
-    public Button btn_add;
+    public Button btn_add, btn_showMap;
     public ListView lv_places;
     public PlanAdapter planAdapter;
     ArrayList<Place_In_Plan> arrPlaces;
@@ -76,6 +77,8 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
 
         btn_add = view.findViewById(R.id.btn_addPlace);
         btn_add.setOnClickListener((View.OnClickListener) this);
+        btn_showMap = view.findViewById(R.id.btn_showPlacesMap);
+        btn_showMap.setOnClickListener((View.OnClickListener) this);
 
         arrPlaces = new ArrayList<>();
         lv_places = view.findViewById(R.id.lv_places);
@@ -117,12 +120,6 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-//        // Construct a GeoDataClient.
-//        mGeoDataClient = Places.getGeoDataClient(getActivity(), null);
-//
-//        // Construct a PlaceDetectionClient.
-//        mPlaceDetectionClient = Places.getPlaceDetectionClient(getActivity(), null);
     }
 
     @Override
@@ -139,7 +136,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
             LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(), dateTime, new MyCallback<Boolean>() {
                 @Override
                 public void call(Boolean res) {
-                    if (res == null){
+                    if (res == false){
                         Toast.makeText(getActivity().getApplicationContext(), "Add place failed, please try again", Toast.LENGTH_SHORT).show();
                     } else{
                         Toast.makeText(getActivity().getApplicationContext(), "Add place succeed", Toast.LENGTH_SHORT).show();
@@ -150,6 +147,11 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
                 }
             });
         }
+        else if (v == btn_showMap){
+            Intent intent = new Intent(getActivity().getApplicationContext(), PlacesMap.class);
+            startActivity(intent);
+        }
+
     }
 
     public void searchPlace(){
