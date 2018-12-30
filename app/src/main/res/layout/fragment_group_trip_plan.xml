@@ -10,11 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <EditText
+        <fragment
+            android:id="@+id/place_autocomplete_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Destination"
-            android:id="@+id/edittext_destination"/>
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

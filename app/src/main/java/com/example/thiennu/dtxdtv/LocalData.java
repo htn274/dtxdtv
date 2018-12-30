@@ -27,15 +27,15 @@ class Discussion {
     public double time;
 }
 
-class Place {
+class Place_In_Plan {
     public String name;
     public String time;
 //    public String date;
-    public Place(){
+    public Place_In_Plan(){
 
     }
 
-    public Place(String name, String time){
+    public Place_In_Plan(String name, String time){
         this.name = name;
         this.time = time;
     }
@@ -48,7 +48,7 @@ class Plan {
     public String end;
     public ArrayList<String> members;
     public ArrayList<Discussion> discussions;
-    public ArrayList<Place> places;
+    public ArrayList<Place_In_Plan> placeInPlans;
 }
 
 interface MyCallback<T> {
@@ -100,13 +100,13 @@ public class LocalData {
         try {
             String url = "http://167.99.138.220:8174/addplace";
             JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time);
-            Log.d("Place 1234", groupID);
+            Log.d("Nunu", name + " " + time);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
                         cb.call(response.getBoolean("ok"));
-                        Log.d("@1234", groupID);
+                        Log.d("Nunu", groupID);
                     }
                     catch (JSONException e){
                         e.printStackTrace();
@@ -114,6 +114,7 @@ public class LocalData {
                     }
                 }
             });
+
         }
         catch (JSONException e){
             e.printStackTrace();
@@ -216,7 +217,7 @@ public class LocalData {
         }
     }
 
-    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place>> cb){
+    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb){
         try{
             String url = "http://167.99.138.220:8174/viewgroup";
             JSONObject data = new JSONObject().put("group_id", groupID);
@@ -226,12 +227,12 @@ public class LocalData {
                     try {
                         JSONObject groupInfo = response.getJSONObject("data");
                         JSONArray arr = groupInfo.getJSONArray("places");
-                        ArrayList<Place> res = new ArrayList<>();
+                        ArrayList<Place_In_Plan> res = new ArrayList<>();
                         for (int i = 0; i < arr.length(); i++){
-                            Place p = new Place();
+                            Place_In_Plan p = new Place_In_Plan();
                             JSONObject obj = arr.getJSONObject(i);
                             p.name = obj.getString("name");
-                            Log.d("Place 1234", p.name);
+                            Log.d("Nunu", p.name);
                             p.time = obj.getString("time");
                             res.add(p);
                         }

@@ -10,17 +10,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanAdapter extends ArrayAdapter<Place> {
+public class PlanAdapter extends ArrayAdapter<Place_In_Plan> {
 
     Context mContext;
     private int mResource;
-    private List<Place> placeList;
+    private List<Place_In_Plan> placeInPlanList;
 
-    public PlanAdapter(Context context, int resource, ArrayList<Place> objects) {
+    public PlanAdapter(Context context, int resource, ArrayList<Place_In_Plan> objects) {
         super(context, resource, resource, objects);
         this.mContext = context;
         this.mResource = resource;
-        this.placeList = objects;
+        this.placeInPlanList = objects;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class PlanAdapter extends ArrayAdapter<Place> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Place place = placeList.get(position);
-        viewHolder.name.setText(place.name);
-        viewHolder.time.setText(place.time);
+        Place_In_Plan placeInPlan = placeInPlanList.get(position);
+        viewHolder.name.setText(placeInPlan.name);
+        viewHolder.time.setText(placeInPlan.time);
 
         return convertView;
     }
