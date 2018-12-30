@@ -32,6 +32,7 @@ public class login extends AppCompatActivity {
         ((Button)findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+
                 phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
                 LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
