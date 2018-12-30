@@ -31,7 +31,9 @@ plans = [
         "places": [
             {
                 "name": "",
-                "time": ""
+                "time": "",
+		"latitude": "",
+		"longtitude": ""
             }
         ]
     }
@@ -112,7 +114,9 @@ def add_place():
         if (plan["group_id"] == content["group_id"]):
             plan["places"].append({
                 "name": content["name"],
-                "time": content["time"]
+                "time": content["time"],
+		"latitude": content["latitude"],
+		"longtitude": content["longtitude"]
             })
             save_json()
             return jsonify({"ok": True})
