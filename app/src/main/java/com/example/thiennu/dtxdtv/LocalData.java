@@ -3,6 +3,7 @@ package com.example.thiennu.dtxdtv;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.BoringLayout;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -98,22 +99,27 @@ interface MyCallback<T> {
 
 public class LocalData {
     static public String phoneNumber;
-    static public String host = "http://0.0.0.0:8174";// "http://167.99.138.220:8174";
+    static public String host = "http://167.99.138.220:8174";
     static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest stringRequest = null;
-        stringRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                data,
-                callback,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("btag", "rjp");
-                    }
-                });
-        requestQueue.add(stringRequest);
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            JsonObjectRequest stringRequest = null;
+            stringRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    data,
+                    callback,
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("btag", "rjp");
+                        }
+                    });
+            requestQueue.add(stringRequest);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
@@ -325,7 +331,7 @@ public class LocalData {
             String url = host + "/getnewmessages";
             JSONObject data = new JSONObject().put("group_id", group_id).put("last_updated", last_updated);
             sendRequest(context, url, data, future);
-            JSONObject response = future.get(3, TimeUnit.SECONDS);
+            JSONObject response = future.get(10, TimeUnit.SECONDS);
             JSONArray jsonArray = response.getJSONArray("messages");
             ArrayList<Message> messages = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); ++i) {
@@ -343,5 +349,20 @@ public class LocalData {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    public static void sendMessage(Context context, String group_id, String text) {
+        String url = host + "/addchat";
+        try {
+            JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", phoneNumber);
+            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
