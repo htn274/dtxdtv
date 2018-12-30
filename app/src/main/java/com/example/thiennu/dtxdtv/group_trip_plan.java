@@ -4,6 +4,7 @@ package com.example.thiennu.dtxdtv;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -25,6 +26,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +38,7 @@ import java.util.Comparator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class group_trip_plan extends Fragment implements View.OnClickListener {
+public class group_trip_plan extends Fragment implements View.OnClickListener, Serializable {
 
     public String groupID;
     public EditText edit_date, edit_time;
@@ -149,7 +151,9 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
             });
         }
         else if (v == btn_showMap){
-            Intent intent = new Intent(getActivity().getApplicationContext(), PlacesMap.class);
+            Intent intent = new Intent(getActivity(), PlacesMap.class);
+            intent.putExtra("places_list", arrPlaces);
+            Log.e("Nunu", "onClick: Put Sucess");
             startActivity(intent);
         }
 
