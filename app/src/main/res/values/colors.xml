@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorDarkGreen">#006600 </color>
     <color name="colorWhite">#ffffff </color>
+    <color name="colorRouteLine">#FF4081</color>
 </resources>

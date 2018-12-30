@@ -32,4 +32,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.3+'
+//    implementation 'com.github.ar-android:DrawRouteMaps:1.0.0'
 }
+
+//allprojects {
+//    repositories {
+//        maven { url "https://jitpack.io" }
+//    }
+//}
