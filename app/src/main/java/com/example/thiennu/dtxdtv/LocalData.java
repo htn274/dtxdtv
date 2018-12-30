@@ -8,14 +8,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 class User {
     public String phone_number;
@@ -60,7 +66,7 @@ interface MyCallback<T> {
 
 public class LocalData {
     static public String phoneNumber;
-
+    static public String host = "http://0.0.0.0:8174";// "http://167.99.138.220:8174";
     static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest stringRequest = null;
@@ -80,7 +86,7 @@ public class LocalData {
 
     static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
         try {
-            String url = "http://167.99.138.220:8174/signin";
+            String url = host + "/signin";
             JSONObject data = new JSONObject().put("phone_number", phone).put("password", pass);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -101,7 +107,7 @@ public class LocalData {
 
     static void AddPlace(Context context, final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb){
         try {
-            String url = "http://167.99.138.220:8174/addplace";
+            String url = host + "/addplace";
             JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time)
                     .put("latitude", location.latitude).put("longtitude", location.longitude);
             Log.d("Nunu", name + " " + time);
@@ -128,7 +134,7 @@ public class LocalData {
 
     static void createTrip(Context context, String tripName, String[] memberList, String fromData, String toDate, final MyCallback<String> cb) {
         try {
-            String url = "http://167.99.138.220:8174/creategroup";
+            String url = host + "/creategroup";
             JSONObject data = new JSONObject().put("group_name", tripName)
                     .put("members", new JSONArray(memberList))
                     .put("start", fromData)
@@ -153,7 +159,7 @@ public class LocalData {
 
     static void getGroupOfUser(Context context, String phone, final MyCallback<ArrayList<TripInfo>> cb) {
         try {
-            String url = "http://167.99.138.220:8174/groupsofauser";
+            String url = host + "/groupsofauser";
             JSONObject data = new JSONObject().put("user", phone);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -195,7 +201,7 @@ public class LocalData {
 
     static void getUsersInfo(Context context, ArrayList<String> phones, final MyCallback<ArrayList<User>> cb) {
         try {
-            String url = "http://167.99.138.220:8174/viewmembers";
+            String url = host + "/viewmembers";
             JSONObject data = new JSONObject().put("users", new JSONArray(phones));
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -223,7 +229,7 @@ public class LocalData {
 
     public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb){
         try{
-            String url = "http://167.99.138.220:8174/viewgroup";
+            String url = host + "/viewgroup";
             JSONObject data = new JSONObject().put("group_id", groupID);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -254,7 +260,7 @@ public class LocalData {
 
     public static void getUsersInGroup(Context context, String groupId, final MyCallback<ArrayList<User>> cb) {
         try {
-            String url = "http://167.99.138.220:8174/usersingroup";
+            String url = host + "/usersingroup";
             JSONObject data = new JSONObject().put("group_id", groupId);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -279,5 +285,31 @@ public class LocalData {
     } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Message> syncCheckNewMessage(Context context, String group_id, Double last_updated) {
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+        try {
+            String url = host + "/getnewmessages";
+            JSONObject data = new JSONObject().put("group_id", group_id).put("last_updated", last_updated);
+            sendRequest(context, url, data, future);
+            JSONObject response = future.get(3, TimeUnit.SECONDS);
+            JSONArray jsonArray = response.getJSONArray("messages");
+            ArrayList<Message> messages = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                Message message = new Message();
+                message.message = object.getString("text");
+                message.user = new User();
+                message.user.phone_number = object.getString("user");
+                message.type = (message.user.phone_number.equals(LocalData.phoneNumber) ? 0 : 1);
+                message.time = object.getDouble("time");
+                messages.add(message);
+            }
+            return messages;
+        } catch (JSONException | InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }

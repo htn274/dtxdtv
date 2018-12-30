@@ -112,7 +112,7 @@ public class groupTrip extends AppCompatActivity {
             View rootView = null;
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
-                    rootView = inflater.inflate(R.layout.fragment_group_trip_chat, container, false);
+                    rootView = inflater.inflate(R.layout.activity_chat, container, false);
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_group_trip_plan, container, false);
@@ -140,7 +140,7 @@ public class groupTrip extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position + 1){
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return new group_trip_discussion(groupId);
                 case 2:
                     return new group_trip_plan(groupId);
                 case 3:

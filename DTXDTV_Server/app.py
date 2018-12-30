@@ -168,6 +168,18 @@ def users_in_group():
         if plan['group_id'] == group_id:
             return jsonify({'users': plan['members']})
 
+@app.route('/getnewmessages', methods = ['POST'])
+def get_new_messages():
+    group_id = request.json['group_id']
+    last_updated = float(request.json['last_updated'])
+    res = []
+    for plan in plans:
+        if plan['group_id'] == group_id:
+            for chat in plan['discussion']:
+                if last_updated < float(chat['time']):
+                    res.append(chat)
+    return jsonify({'messages': res})
+            
 if (__name__ == '__main__'):
     load_json()
     app.run(host = "0.0.0.0", port = 8174)
