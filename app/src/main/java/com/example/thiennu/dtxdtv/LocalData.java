@@ -331,7 +331,7 @@ public class LocalData {
             String url = host + "/getnewmessages";
             JSONObject data = new JSONObject().put("group_id", group_id).put("last_updated", last_updated);
             sendRequest(context, url, data, future);
-            JSONObject response = future.get(10, TimeUnit.SECONDS);
+            JSONObject response = future.get(1, TimeUnit.SECONDS);
             JSONArray jsonArray = response.getJSONArray("messages");
             ArrayList<Message> messages = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); ++i) {
