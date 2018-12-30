@@ -30,6 +30,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.trip_info, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.tripName = (TextView) convertView.findViewById(R.id.tripName);
+            viewHolder.time = (TextView) convertView.findViewById(R.id.tripTime);
             convertView.setTag(viewHolder);
         }
         else {
@@ -38,11 +39,13 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
 
         TripInfo tripInfo = tripList.get(position);
         viewHolder.tripName.setText(tripInfo.getTrip_name());
+        viewHolder.time.setText(tripInfo.fromDate.toString() + " - " + tripInfo.toDate.toString());
 
         return convertView;
     }
 
     public class ViewHolder{
         TextView tripName;
+        TextView time;
     }
 }

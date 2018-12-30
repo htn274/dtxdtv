@@ -66,6 +66,7 @@ public class PlacesMap extends FragmentActivity implements OnMapReadyCallback, S
         if (numPlaces > 0)
         {
             IconGenerator icg = new IconGenerator(this);
+            icg.setTextAppearance(R.style.iconGenText);
             icg.setColor(Color.BLUE);
             for (int i = 0; i < numPlaces; i++){
                 Bitmap bm = icg.makeIcon(String.valueOf(i + 1));
@@ -85,7 +86,7 @@ public class PlacesMap extends FragmentActivity implements OnMapReadyCallback, S
     }
 
     public void drawRoute(LatLng source, LatLng destination){
-        new GetPathFromLocation(source, destination, Color.GREEN, new DirectionPointListener() {
+        new GetPathFromLocation(source, destination, R.color.colorRouteLine, new DirectionPointListener() {
             @Override
             public void onPath(PolylineOptions polyLine) {
                 mMap.addPolyline(polyLine);
