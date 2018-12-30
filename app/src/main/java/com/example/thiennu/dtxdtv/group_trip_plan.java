@@ -133,14 +133,15 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
             Log.d("Nunu", "onClick: add");
             final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
             planAdapter.notifyDataSetChanged();
-            LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(), dateTime, new MyCallback<Boolean>() {
+            LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
+                    dateTime, chosen_place.getLatLng(), new MyCallback<Boolean>() {
                 @Override
                 public void call(Boolean res) {
                     if (res == false){
                         Toast.makeText(getActivity().getApplicationContext(), "Add place failed, please try again", Toast.LENGTH_SHORT).show();
                     } else{
                         Toast.makeText(getActivity().getApplicationContext(), "Add place succeed", Toast.LENGTH_SHORT).show();
-                        arrPlaces.add(new Place_In_Plan(chosen_place.getName().toString(), dateTime));
+                        arrPlaces.add(new Place_In_Plan(chosen_place.getName().toString(), dateTime, chosen_place.getLatLng()));
                         sortArrayByDateTime(arrPlaces);
                         planAdapter.notifyDataSetChanged();
                     }

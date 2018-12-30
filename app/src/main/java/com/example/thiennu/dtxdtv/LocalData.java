@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +31,16 @@ class Discussion {
 class Place_In_Plan {
     public String name;
     public String time;
+    public LatLng location;
 //    public String date;
     public Place_In_Plan(){
 
     }
 
-    public Place_In_Plan(String name, String time){
+    public Place_In_Plan(String name, String time, LatLng location){
         this.name = name;
         this.time = time;
+        this.location = location;
     }
 }
 
@@ -96,10 +99,11 @@ public class LocalData {
         }
     }
 
-    static void AddPlace(Context context, final String groupID, String name, String time, final MyCallback<Boolean> cb){
+    static void AddPlace(Context context, final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb){
         try {
             String url = "http://167.99.138.220:8174/addplace";
-            JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time);
+            JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time)
+                    .put("latitude", location.latitude).put("longtitude", location.longitude);
             Log.d("Nunu", name + " " + time);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
@@ -232,8 +236,8 @@ public class LocalData {
                             Place_In_Plan p = new Place_In_Plan();
                             JSONObject obj = arr.getJSONObject(i);
                             p.name = obj.getString("name");
-                            Log.d("Nunu", p.name);
                             p.time = obj.getString("time");
+                            p.location = new LatLng(obj.getDouble("latitude"), obj.getDouble("longtitude"));
                             res.add(p);
                         }
                         cb.call(res);
