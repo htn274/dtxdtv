@@ -38,7 +38,7 @@ import java.util.Comparator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class group_trip_plan extends Fragment implements View.OnClickListener, Serializable {
+public class group_trip_plan extends Fragment implements View.OnClickListener {
 
     public String groupID;
     public EditText edit_date, edit_time;
@@ -151,10 +151,11 @@ public class group_trip_plan extends Fragment implements View.OnClickListener, S
             });
         }
         else if (v == btn_showMap){
-            Intent intent = new Intent(getActivity(), PlacesMap.class);
-            intent.putExtra("places_list", arrPlaces);
-            Log.e("Nunu", "onClick: Put Sucess");
-            startActivity(intent);
+            if (arrPlaces.size() > 0) {
+                Intent intent = new Intent(getActivity(), PlacesMap.class);
+                intent.putParcelableArrayListExtra("placesList", arrPlaces);
+                startActivity(intent);
+            }
         }
 
     }

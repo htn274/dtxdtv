@@ -1,5 +1,6 @@
 package com.example.thiennu.dtxdtv;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -26,10 +27,6 @@ public class PlacesMap extends FragmentActivity implements OnMapReadyCallback, S
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
-        arrPlaces = new ArrayList<>();
-        arrPlaces = (ArrayList<Place_In_Plan>) this.getIntent().getSerializableExtra("places_list");
-
         mapFragment.getMapAsync(this);
     }
 
@@ -46,13 +43,27 @@ public class PlacesMap extends FragmentActivity implements OnMapReadyCallback, S
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        for (int i = 0; i < arrPlaces.size(); i++){
-            mMap.addMarker(new MarkerOptions().position(arrPlaces.get(i).location));
-        }
 
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        Intent intent = getIntent();
+        arrPlaces = intent.getExtras().getParcelableArrayList("placesList");
+        double centerLongtitude = 0, centerLatitude = 0;
+
+        int numPlaces = arrPlaces.size();
+        if (intent != null && numPlaces > 0)
+        {
+            for (int i = 0; i < numPlaces; i++){
+
+                mMap.addMarker(new MarkerOptions().position(arrPlaces.get(i).location));
+                centerLongtitude += arrPlaces.get(i).location.longitude;
+                centerLatitude += arrPlaces.get(i).location.latitude;
+            }
+            LatLng defaultLoc = new LatLng(centerLatitude/numPlaces, centerLongtitude/numPlaces);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLoc, 15));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
