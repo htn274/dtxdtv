@@ -3,51 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".group_trip_plan"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".group_trip_plan">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <fragment
             android:id="@+id/place_autocomplete_fragment"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/editText_time"
                 android:layout_width="93dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:hint="Time"
-                android:id="@+id/editText_time" />
+                android:hint="Time" />
 
             <EditText
+                android:id="@+id/editText_date"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:hint="Date"
-                android:id="@+id/editText_date" />
+                android:hint="Date" />
+
             <Button
+                android:id="@+id/btn_addPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add"
-                android:id="@+id/btn_addPlace"/>
+                android:text="Add" />
         </LinearLayout>
     </LinearLayout>
+
     <Button
+        android:id="@+id/btn_showPlacesMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show map"
-        android:id="@+id/btn_showPlacesMap"/>
+        android:text="Show map" />
+
     <ListView
+        android:id="@+id/lv_places"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_places">
-    </ListView>
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

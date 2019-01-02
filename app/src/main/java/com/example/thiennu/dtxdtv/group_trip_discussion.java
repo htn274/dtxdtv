@@ -1,9 +1,8 @@
 package com.example.thiennu.dtxdtv;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,8 @@ public class group_trip_discussion extends Fragment {
     ArrayList<Message> messages;
     Double last_updated = -1.0;
 
-    public group_trip_discussion() {}
+    public group_trip_discussion() {
+    }
 
     @SuppressLint("ValidFragment")
     public group_trip_discussion(String group_id) {
@@ -35,7 +34,7 @@ public class group_trip_discussion extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         Log.d("btag", "nooooo");
         View v = inflater.inflate(R.layout.activity_chat, container, false);
 
@@ -66,10 +65,10 @@ public class group_trip_discussion extends Fragment {
             }
         });
 
-        final EditText editText = (EditText)v.findViewById(R.id.editTextMessage);
+        final EditText editText = (EditText) v.findViewById(R.id.editTextMessage);
         editText.requestFocus();
 
-        ((Button)v.findViewById(R.id.buttonSendMessage)).setOnClickListener(new View.OnClickListener() {
+        ((Button) v.findViewById(R.id.buttonSendMessage)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!editText.getText().equals("")) {

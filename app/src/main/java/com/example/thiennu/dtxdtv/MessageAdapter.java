@@ -7,15 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_SENT = 0;
     private static final int VIEW_TYPE_RECEIVED = 1;
     Context context;
     List<Message> messages;
+
     MessageAdapter(Context context, List<Message> messages) {
         this.context = context;
         this.messages = messages;
@@ -38,8 +37,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Log.d("btag", "onCreateViewHolder");
         if (viewType == VIEW_TYPE_SENT) {
             return new SentMessageHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_message_sent, viewGroup, false));
-        }
-        else if (viewType == VIEW_TYPE_RECEIVED) {
+        } else if (viewType == VIEW_TYPE_RECEIVED) {
             return new ReceivedMessageHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_message_recieved, viewGroup, false));
         }
         Log.d("btag", "onCreateViewHolder succeed");
@@ -51,12 +49,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
         Log.d("btag", "" + viewHolder.getItemViewType());
         if (viewHolder.getItemViewType() == VIEW_TYPE_SENT) {
             Log.d("btag", "onBindViewHolder SENT");
-            ((SentMessageHolder)viewHolder).bind(messages.get(position));
+            ((SentMessageHolder) viewHolder).bind(messages.get(position));
             Log.d("btag", "onBindViewHolder SENT succeed");
-        }
-        else if (viewHolder.getItemViewType() == VIEW_TYPE_RECEIVED) {
+        } else if (viewHolder.getItemViewType() == VIEW_TYPE_RECEIVED) {
             Log.d("btag", "onBindViewHolder RECEIVE");
-            ((ReceivedMessageHolder)viewHolder).bind(messages.get(position));
+            ((ReceivedMessageHolder) viewHolder).bind(messages.get(position));
             Log.d("btag", "onBindViewHolder RECEIVE succeed");
         }
     }

@@ -2,16 +2,13 @@ package com.example.thiennu.dtxdtv;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,11 +21,11 @@ public class dashboard extends AppCompatActivity
     public static String phone;
 
     ArrayList<DashModel> dashModelArrayList;
-    private RecyclerView recyclerView;
     DashAdapter dashAdapter;
     String heads[] = {"Promotions", "Events", "Places", "News feed", "My profile", "Trips"};
     int images[] = {R.drawable.ic_promotions, R.drawable.ic_event_black_24dp, R.drawable.ic_places, R.drawable.ic_newsfeed,
             R.drawable.ic_myprofile, R.drawable.ic_trips};
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +55,14 @@ public class dashboard extends AppCompatActivity
 
         dashModelArrayList = new ArrayList<>();
 
-        for(int count = 0 ; count < heads.length ; count++)
-        {
+        for (int count = 0; count < heads.length; count++) {
             DashModel dashModel = new DashModel();
             dashModel.setHead(heads[count]);
             dashModel.setImage(images[count]);
             dashModelArrayList.add(dashModel);
             //this should be retrieved in our adapter
         }
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         dashAdapter = new DashAdapter(this, dashModelArrayList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(dashAdapter);

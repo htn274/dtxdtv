@@ -1,28 +1,15 @@
-
 package com.example.thiennu.dtxdtv;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class login extends AppCompatActivity {
 
@@ -37,12 +24,12 @@ public class login extends AppCompatActivity {
             bar.hide();
         }
         setContentView(R.layout.activity_login);
-        ((Button)findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
 
-                phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
-                String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
+                phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
+                String pass = ((EditText) findViewById(R.id.editText_password)).getText().toString();
                 LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
                     @Override
                     public void call(Boolean response) {
@@ -50,13 +37,13 @@ public class login extends AppCompatActivity {
                             loginOnlick(v);
                             LocalData.phoneNumber = phone;
                         } else {
-                            Toast.makeText(getApplicationContext(),"Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
-        ((TextView)findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
+        ((TextView) findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);

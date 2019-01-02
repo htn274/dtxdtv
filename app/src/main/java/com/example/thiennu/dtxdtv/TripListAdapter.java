@@ -16,7 +16,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
     private int mResource;
     private List<TripInfo> tripList;
 
-    public TripListAdapter(Context context, int resource,ArrayList<TripInfo> objects) {
+    public TripListAdapter(Context context, int resource, ArrayList<TripInfo> objects) {
         super(context, resource, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -24,16 +24,15 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
     }
 
     @Override
-    public View getView(int position, View convertView,  ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.trip_info, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.tripName = (TextView) convertView.findViewById(R.id.tripName);
             viewHolder.time = (TextView) convertView.findViewById(R.id.tripTime);
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
@@ -44,7 +43,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
         return convertView;
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         TextView tripName;
         TextView time;
     }

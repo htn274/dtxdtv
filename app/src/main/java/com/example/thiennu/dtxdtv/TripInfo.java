@@ -3,11 +3,11 @@ package com.example.thiennu.dtxdtv;
 import java.util.ArrayList;
 
 public class TripInfo {
-    private String trip_name;
     String id;
     ArrayList<String> members;
     String fromDate;
     String toDate;
+    private String trip_name;
 
 
     public TripInfo(String trip_name) {

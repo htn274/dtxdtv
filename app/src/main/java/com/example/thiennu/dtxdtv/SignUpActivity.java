@@ -1,8 +1,6 @@
 package com.example.thiennu.dtxdtv;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,7 +13,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -28,12 +25,12 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ((Button)findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uname = ((EditText)findViewById(R.id.editText_username)).getText().toString();
-                String phone = ((EditText)findViewById(R.id.editText_phonenumber)).getText().toString();
-                String pass = ((EditText)findViewById(R.id.editText_password)).getText().toString();
+                String uname = ((EditText) findViewById(R.id.editText_username)).getText().toString();
+                String phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
+                String pass = ((EditText) findViewById(R.id.editText_password)).getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 JsonObjectRequest stringRequest = null;
@@ -53,7 +50,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Log.d("btag", "rjp");
-                                }});
+                                }
+                            });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

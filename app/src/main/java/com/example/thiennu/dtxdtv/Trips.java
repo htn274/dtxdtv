@@ -1,21 +1,19 @@
 package com.example.thiennu.dtxdtv;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Trips extends AppCompatActivity {
 
+    public TripListAdapter customAdaper;
     ArrayList<TripInfo> tripList;
     private ListView lvTrips;
-    public  TripListAdapter customAdaper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +31,29 @@ public class Trips extends AppCompatActivity {
         super.onResume();
     }
 
-    public void setLvTrips(){
-        customAdaper = new TripListAdapter(this,R.layout.trip_info, tripList);
+    public void setLvTrips() {
+        customAdaper = new TripListAdapter(this, R.layout.trip_info, tripList);
         customAdaper.notifyDataSetChanged();
         lvTrips.setAdapter(customAdaper);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), groupTrip.class);
-                intent.putExtra("groupName", ((TripInfo)lvTrips.getItemAtPosition(position)).getTrip_name());
-                intent.putExtra("groupId", ((TripInfo)lvTrips.getItemAtPosition(position)).id);
+                intent.putExtra("groupName", ((TripInfo) lvTrips.getItemAtPosition(position)).getTrip_name());
+                intent.putExtra("groupId", ((TripInfo) lvTrips.getItemAtPosition(position)).id);
                 startActivity(intent);
             }
         });
     }
 
 
-    public void getTripList(){
+    public void getTripList() {
         String phone = dashboard.phone;
         LocalData.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
             @Override
             public void call(ArrayList<TripInfo> res) {
                 tripList = res;
-                if (tripList.size() > 0){
+                if (tripList.size() > 0) {
                     setLvTrips();
                 }
             }

@@ -4,34 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SignUpActivity"
-    tools:showIn="@layout/activity_sign_up"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_sign_up">
+
     <EditText
+        android:id="@+id/editText_phonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
-        android:id="@+id/editText_phonenumber"
-        android:inputType="number"/>
+        android:inputType="number" />
 
     <EditText
+        android:id="@+id/editText_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User name"
-        android:id="@+id/editText_username"/>
+        android:hint="User name" />
 
     <EditText
+        android:id="@+id/editText_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:id="@+id/editText_password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <Button
+        android:id="@+id/buttonSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonSignUp"
-        android:text="Sign Up"/>
+        android:text="Sign Up" />
 
 </LinearLayout>

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
-android:gravity="center"
-android:layout_margin="15dp">
-
-<android.support.v7.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="3dp"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:id="@+id/cardViewDashBoard">
+    android:layout_margin="15dp"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewDashBoard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="3dp">
 
-        <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:src="@drawable/ic_promotions"
-            android:id="@+id/dash_image"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Promostions"
-            android:id="@+id/dash_header"
-            android:textSize="15dp"
-            android:layout_below="@+id/dash_image"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/dash_image"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_promotions" />
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/dash_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dash_image"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:text="Promostions"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

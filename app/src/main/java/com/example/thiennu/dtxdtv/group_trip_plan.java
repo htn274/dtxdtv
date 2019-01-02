@@ -4,7 +4,6 @@ package com.example.thiennu.dtxdtv;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -23,13 +22,9 @@ import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,13 +43,13 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
     public Button btn_add, btn_showMap;
     public ListView lv_places;
     public PlanAdapter planAdapter;
-    ArrayList<Place_In_Plan> arrPlaces;
     public PlaceAutocompleteFragment placeAutocompleteFragment;
     protected GeoDataClient mGeoDataClient;
     protected PlaceDetectionClient mPlaceDetectionClient;
+    ArrayList<Place_In_Plan> arrPlaces;
     Place chosen_place;
 
-    public group_trip_plan(){
+    public group_trip_plan() {
 
     }
 
@@ -90,10 +85,10 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
         setPlanAdapter();
 
         searchPlace();
-        return  view;
+        return view;
     }
 
-    private void setPlanAdapter(){
+    private void setPlanAdapter() {
         Log.d("Nunu", "set plan adapter: ");
         LocalData.getPlaceInGroup(getActivity(), groupID, new MyCallback<ArrayList<Place_In_Plan>>() {
             @Override
@@ -107,10 +102,11 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
         });
     }
 
-    public void sortArrayByDateTime(ArrayList<Place_In_Plan> arr){
+    public void sortArrayByDateTime(ArrayList<Place_In_Plan> arr) {
         Log.d("Nunu", "sortArrayByDateTime: ");
         Collections.sort(arr, new Comparator<Place_In_Plan>() {
             DateFormat f = new SimpleDateFormat("HH:mm dd-mm-yyyy");
+
             @Override
             public int compare(Place_In_Plan lhs, Place_In_Plan rhs) {
                 try {
@@ -134,23 +130,21 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btn_add){
-            if (chosen_place == null){
+        if (v == btn_add) {
+            if (chosen_place == null) {
                 Toast.makeText(getActivity().getApplicationContext(), "You must chose place.", Toast.LENGTH_SHORT).show();
-            }
-            else if (TextUtils.isEmpty(edit_date.getText().toString()) || TextUtils.isEmpty(edit_time.getText().toString())){
+            } else if (TextUtils.isEmpty(edit_date.getText().toString()) || TextUtils.isEmpty(edit_time.getText().toString())) {
                 Toast.makeText(getActivity().getApplicationContext(), "You must set time and date", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
                 planAdapter.notifyDataSetChanged();
                 LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
                         dateTime, chosen_place.getLatLng(), new MyCallback<Boolean>() {
                             @Override
                             public void call(Boolean res) {
-                                if (res == false){
+                                if (res == false) {
                                     Toast.makeText(getActivity().getApplicationContext(), "Add place failed, please try again", Toast.LENGTH_SHORT).show();
-                                } else{
+                                } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Add place succeed", Toast.LENGTH_SHORT).show();
                                     arrPlaces.add(new Place_In_Plan(chosen_place.getName().toString(), dateTime, chosen_place.getLatLng()));
                                     sortArrayByDateTime(arrPlaces);
@@ -159,8 +153,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
                             }
                         });
             }
-        }
-        else if (v == btn_showMap){
+        } else if (v == btn_showMap) {
             if (arrPlaces.size() > 0) {
                 Intent intent = new Intent(getActivity(), PlacesMap.class);
                 intent.putParcelableArrayListExtra("placesList", arrPlaces);
@@ -172,7 +165,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
 
     }
 
-    public void searchPlace(){
+    public void searchPlace() {
         assert getFragmentManager() != null;
         PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment) getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 

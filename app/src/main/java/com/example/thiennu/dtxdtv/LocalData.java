@@ -3,7 +3,6 @@ package com.example.thiennu.dtxdtv;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.BoringLayout;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -18,13 +17,16 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+interface MyCallback<T> {
+    void call(T res);
+}
 
 class User {
     public String phone_number;
@@ -38,26 +40,6 @@ class Discussion {
 }
 
 class Place_In_Plan implements Parcelable {
-    public String name;
-    public String time;
-    public LatLng location;
-//    public String date;
-    public Place_In_Plan(){
-
-    }
-
-    public Place_In_Plan(String name, String time, LatLng location){
-        this.name = name;
-        this.time = time;
-        this.location = location;
-    }
-
-    protected Place_In_Plan(Parcel in) {
-        name = in.readString();
-        time = in.readString();
-        location = in.readParcelable(LatLng.class.getClassLoader());
-    }
-
     public static final Creator<Place_In_Plan> CREATOR = new Creator<Place_In_Plan>() {
         @Override
         public Place_In_Plan createFromParcel(Parcel in) {
@@ -69,6 +51,26 @@ class Place_In_Plan implements Parcelable {
             return new Place_In_Plan[size];
         }
     };
+    public String name;
+    public String time;
+    public LatLng location;
+
+    //    public String date;
+    public Place_In_Plan() {
+
+    }
+
+    public Place_In_Plan(String name, String time, LatLng location) {
+        this.name = name;
+        this.time = time;
+        this.location = location;
+    }
+
+    protected Place_In_Plan(Parcel in) {
+        name = in.readString();
+        time = in.readString();
+        location = in.readParcelable(LatLng.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -93,13 +95,10 @@ class Plan {
     public ArrayList<Place_In_Plan> placeInPlans;
 }
 
-interface MyCallback<T> {
-    void call(T res);
-}
-
 public class LocalData {
     static public String phoneNumber;
     static public String host = "http://167.99.138.220:8174";
+
     static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -116,8 +115,7 @@ public class LocalData {
                         }
                     });
             requestQueue.add(stringRequest);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -143,7 +141,7 @@ public class LocalData {
         }
     }
 
-    static void AddPlace(Context context, final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb){
+    static void AddPlace(Context context, final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb) {
         try {
             String url = host + "/addplace";
             JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time)
@@ -155,18 +153,16 @@ public class LocalData {
                     try {
                         cb.call(response.getBoolean("ok"));
                         Log.d("Nunu", groupID);
-                    }
-                    catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                         assert 1 == 0;
                     }
                 }
             });
 
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
-            assert  1 == 0;
+            assert 1 == 0;
         }
     }
 
@@ -247,7 +243,7 @@ public class LocalData {
                     try {
                         JSONArray arr = response.getJSONArray("users");
                         ArrayList<User> res = new ArrayList<>();
-                        for (int i=0; i<arr.length(); i++) {
+                        for (int i = 0; i < arr.length(); i++) {
                             User u = new User();
                             JSONObject o = arr.getJSONObject(i);
                             u.name = o.getString("name");
@@ -265,8 +261,8 @@ public class LocalData {
         }
     }
 
-    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb){
-        try{
+    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb) {
+        try {
             String url = host + "/viewgroup";
             JSONObject data = new JSONObject().put("group_id", groupID);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
@@ -276,7 +272,7 @@ public class LocalData {
                         JSONObject groupInfo = response.getJSONObject("data");
                         JSONArray arr = groupInfo.getJSONArray("places");
                         ArrayList<Place_In_Plan> res = new ArrayList<>();
-                        for (int i = 0; i < arr.length(); i++){
+                        for (int i = 0; i < arr.length(); i++) {
                             Place_In_Plan p = new Place_In_Plan();
                             JSONObject obj = arr.getJSONObject(i);
                             p.name = obj.getString("name");
@@ -290,8 +286,7 @@ public class LocalData {
                     }
                 }
             });
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -314,13 +309,12 @@ public class LocalData {
                             res.add(u);
                         }
                         cb.call(res);
-                    }
-                    catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
-    } catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
