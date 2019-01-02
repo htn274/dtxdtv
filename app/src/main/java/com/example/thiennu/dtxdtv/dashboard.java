@@ -18,8 +18,6 @@ import java.util.ArrayList;
 public class dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String phone;
-
     ArrayList<DashModel> dashModelArrayList;
     DashAdapter dashAdapter;
     String heads[] = {"Promotions", "Events", "Places", "News feed", "My profile", "Trips"};
@@ -31,9 +29,6 @@ public class dashboard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        Intent intent = this.getIntent();
-        phone = intent.getStringExtra("phone");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

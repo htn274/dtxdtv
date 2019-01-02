@@ -51,7 +51,11 @@ public class createTrip extends Activity implements View.OnClickListener {
         createButton.setOnClickListener(this);
 
         memberList = findViewById(R.id.editText_memberslist);
-        memberList.setText(dashboard.phone);
+        try {
+            memberList.setText(LocalData.getPhoneNumber());
+        } catch (DataException e) {
+            Toast.makeText(getApplicationContext(), e.errorMessage(), Toast.LENGTH_SHORT).show();
+        }
         tripName = findViewById(R.id.editText_tripName);
     }
 

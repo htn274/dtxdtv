@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,12 @@ public class Trips extends AppCompatActivity {
 
 
     public void getTripList() {
-        String phone = dashboard.phone;
+        String phone = null;
+        try {
+            phone = LocalData.getPhoneNumber();
+        } catch (DataException e) {
+            Toast.makeText(getApplicationContext(), e.errorMessage(), Toast.LENGTH_SHORT).show();
+        }
         Backend.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
             @Override
             public void call(ArrayList<TripInfo> res) {
