@@ -56,7 +56,7 @@ public class group_trip_discussion extends Fragment {
                     List<Message> newMessages = LocalData.syncCheckNewMessage(getContext(), group_id, last_updated);
 
                     messages.addAll(newMessages);
-                    messageRecycler.invalidate();
+                    messageRecycler.postInvalidate();
 //                    messageRecycler.scrollToPosition(messages.size() - 1);
 
                     if (!messages.isEmpty()) {
