@@ -35,19 +35,19 @@ public class createTrip extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_create_trip);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         findViewsById();
-
-        setDateTimeField();
     }
 
     private void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.editText_dateFrom);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
-        fromDateEtxt.requestFocus();
-        createButton = ((Button)findViewById(R.id.btn_create));
-        createButton.setOnClickListener((View.OnClickListener)this);
+        new DateSetter(fromDateEtxt, this.getApplicationContext());
 
         toDateEtxt = (EditText) findViewById(R.id.editText_dateTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
+        new DateSetter(toDateEtxt, this.getApplicationContext());
+
+        createButton = ((Button)findViewById(R.id.btn_create));
+        createButton.setOnClickListener((View.OnClickListener)this);
 
         memberList = (EditText) findViewById(R.id.editText_memberslist);
         memberList.setText(dashboard.phone);
