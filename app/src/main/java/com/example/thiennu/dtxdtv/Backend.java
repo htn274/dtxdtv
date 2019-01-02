@@ -87,7 +87,7 @@ class Backend {
         queue = Volley.newRequestQueue(context);
     }
 
-    static void sendRequest(String url, JSONObject data, Response.Listener<JSONObject> callback) {
+    private static void sendRequest(String url, JSONObject data, Response.Listener<JSONObject> callback) {
 
         JsonObjectRequest stringRequest = null;
         stringRequest = new JsonObjectRequest(
@@ -121,7 +121,6 @@ class Backend {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            assert 1 == 0;
         }
     }
 
@@ -139,14 +138,12 @@ class Backend {
                         Log.d("Nunu", groupID);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        assert 1 == 0;
                     }
                 }
             });
 
         } catch (JSONException e) {
             e.printStackTrace();
-            assert 1 == 0;
         }
     }
 
@@ -164,14 +161,12 @@ class Backend {
                         cb.call(response.getString("group_id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        assert 1 == 0;
                     }
                 }
             });
 
         } catch (JSONException e) {
             e.printStackTrace();
-            assert 1 == 0;
         }
     }
 
@@ -207,13 +202,11 @@ class Backend {
                         cb.call(res);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        assert 1 == 0;
                     }
                 }
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            assert 1 == 0;
         }
     }
 
@@ -245,7 +238,7 @@ class Backend {
         }
     }
 
-    public static void getPlaceInGroup(String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb) {
+    static void getPlaceInGroup(String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb) {
         try {
             String url = host + "/viewgroup";
             JSONObject data = new JSONObject().put("group_id", groupID);
@@ -303,7 +296,7 @@ class Backend {
         }
     }
 
-    public static List<Message> syncCheckNewMessage(String group_id, Double last_updated) {
+    static List<Message> syncCheckNewMessage(String group_id, Double last_updated) {
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         try {
             String url = host + "/getnewmessages";
@@ -329,14 +322,13 @@ class Backend {
         return new ArrayList<>();
     }
 
-    public static void sendMessage(String group_id, String text) {
+    static void sendMessage(String group_id, String text) {
         String url = host + "/addchat";
         try {
             JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", LocalData.getPhoneNumber());
             sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-
                 }
             });
         } catch (JSONException | DataException e) {
