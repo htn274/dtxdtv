@@ -65,7 +65,7 @@ public class group_trip_discussion extends Fragment {
         });
 
         final EditText editText = v.findViewById(R.id.editTextMessage);
-        editText.requestFocus();
+        // editText.requestFocus();
 
         v.findViewById(R.id.buttonSendMessage).setOnClickListener(new View.OnClickListener() {
             @Override
