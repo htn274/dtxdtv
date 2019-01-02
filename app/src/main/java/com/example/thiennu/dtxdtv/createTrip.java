@@ -28,6 +28,7 @@ public class createTrip extends Activity implements View.OnClickListener {
     private DatePickerDialog toDatePickerDialog;
     Button createButton;
     private SimpleDateFormat dateFormatter;
+    private DateSetter dateSetter1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +36,18 @@ public class createTrip extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_create_trip);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         findViewsById();
+        setDateTimeField();
     }
+    DateSetter dateSetter;
 
     private void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.editText_dateFrom);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
-        new DateSetter(fromDateEtxt, this.getApplicationContext());
+//        dateSetter = new DateSetter(fromDateEtxt, getApplicationContext());
 
         toDateEtxt = (EditText) findViewById(R.id.editText_dateTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
-        new DateSetter(toDateEtxt, this.getApplicationContext());
+//        dateSetter1 = new DateSetter(toDateEtxt, getApplicationContext());
 
         createButton = ((Button)findViewById(R.id.btn_create));
         createButton.setOnClickListener((View.OnClickListener)this);
@@ -82,7 +85,6 @@ public class createTrip extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
         if(view == fromDateEtxt) {
             fromDatePickerDialog.show();
         } else if(view == toDateEtxt) {
