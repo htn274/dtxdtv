@@ -39,24 +39,4 @@ class LocalData {
         }
         return phoneNumber;
     }
-
-    static ArrayList<TripInfo> getTripList() {
-        /*
-        String phone = null;
-        try {
-            phone = LocalData.getPhoneNumber();
-        } catch (DataException e) {
-        }
-        Backend.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
-            @Override
-            public void call(ArrayList<TripInfo> res) {
-                tripList = res;
-                if (tripList.size() > 0) {
-                    setLvTrips();
-                }
-            }
-        });
-        */
-        return null;
-    }
 }

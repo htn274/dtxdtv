@@ -18,6 +18,7 @@ public class Trips extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
         getSupportActionBar().setTitle("My Trips");
+        lvTrips = findViewById(R.id.lvTrips);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -27,7 +28,6 @@ public class Trips extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        lvTrips = findViewById(R.id.lvTrips);
         updateTripList();
     }
 
@@ -38,9 +38,21 @@ public class Trips extends AppCompatActivity {
     }
 
     public void updateTripList() {
-        TripListAdapter customAdaper = new TripListAdapter(this, R.layout.trip_info, LocalData.getTripList());
-        customAdaper.notifyDataSetChanged();
-        lvTrips.setAdapter(customAdaper);
+        try {
+            String phone = LocalData.getPhoneNumber();
+            final Trips self = this;
+            Backend.getGroupOfUser(phone, new MyCallback<ArrayList<TripInfo>>() {
+                @Override
+                public void call(ArrayList<TripInfo> tripList) {
+                    if (tripList.size() > 0) {
+                        TripListAdapter tripListAdapter = new TripListAdapter(self, R.layout.trip_info, tripList);
+                        lvTrips.setAdapter(tripListAdapter);
+                    }
+                }
+            });
+        } catch (DataException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void addGroup(View view) {
