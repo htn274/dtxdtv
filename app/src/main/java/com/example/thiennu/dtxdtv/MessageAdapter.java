@@ -23,7 +23,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return messages.get(position).type;
-//        if (messages.get(position).user.phone_number.equals(LocalData.phoneNumber)) {
+//        if (messages.get(position).user.phone_number.equals(Backend.phoneNumber)) {
 //            return VIEW_TYPE_SENT;
 //        }
 //        else {

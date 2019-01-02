@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class group_trip_discussion extends Fragment {
             @Override
             public void run() {
                 while (true) {
-                    List<Message> newMessages = LocalData.syncCheckNewMessage(getContext(), group_id, last_updated);
+                    List<Message> newMessages = Backend.syncCheckNewMessage(getContext(), group_id, last_updated);
 
                     messages.addAll(newMessages);
                     messageRecycler.postInvalidate();
@@ -72,7 +71,7 @@ public class group_trip_discussion extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!editText.getText().equals("")) {
-                    LocalData.sendMessage(getContext(), group_id, editText.getText().toString());
+                    Backend.sendMessage(getContext(), group_id, editText.getText().toString());
                     editText.setText("");
                 }
             }

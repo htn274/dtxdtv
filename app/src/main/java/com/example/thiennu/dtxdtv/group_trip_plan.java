@@ -90,7 +90,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
 
     private void setPlanAdapter() {
         Log.d("Nunu", "set plan adapter: ");
-        LocalData.getPlaceInGroup(getActivity(), groupID, new MyCallback<ArrayList<Place_In_Plan>>() {
+        Backend.getPlaceInGroup(getActivity(), groupID, new MyCallback<ArrayList<Place_In_Plan>>() {
             @Override
             public void call(ArrayList<Place_In_Plan> res) {
                 arrPlaces = res;
@@ -138,7 +138,7 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
             } else {
                 final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
                 planAdapter.notifyDataSetChanged();
-                LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
+                Backend.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
                         dateTime, chosen_place.getLatLng(), new MyCallback<Boolean>() {
                             @Override
                             public void call(Boolean res) {

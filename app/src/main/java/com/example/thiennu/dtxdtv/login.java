@@ -6,9 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class login extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class login extends AppCompatActivity {
 
                 phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText) findViewById(R.id.editText_password)).getText().toString();
-                LocalData.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
+                Backend.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
                     @Override
                     public void call(Boolean response) {
                         if (response) {

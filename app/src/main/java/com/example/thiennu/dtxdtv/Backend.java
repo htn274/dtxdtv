@@ -33,12 +33,6 @@ class User {
     public String name;
 }
 
-class Discussion {
-    public String text;
-    public String user;
-    public double time;
-}
-
 class Place_In_Plan implements Parcelable {
     public static final Creator<Place_In_Plan> CREATOR = new Creator<Place_In_Plan>() {
         @Override
@@ -85,19 +79,12 @@ class Place_In_Plan implements Parcelable {
     }
 }
 
-class Plan {
-    public String group_id;
-    public String group_name;
-    public String start;
-    public String end;
-    public ArrayList<String> members;
-    public ArrayList<Discussion> discussions;
-    public ArrayList<Place_In_Plan> placeInPlans;
+class LocalData {
+    static String phoneNumber;
 }
 
-public class LocalData {
-    static public String phoneNumber;
-    static public String host = "http://167.99.138.220:8174";
+class Backend {
+    private static String host = "http://167.99.138.220:8174";
 
     static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
         try {
@@ -348,7 +335,7 @@ public class LocalData {
     public static void sendMessage(Context context, String group_id, String text) {
         String url = host + "/addchat";
         try {
-            JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", phoneNumber);
+            JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", LocalData.phoneNumber);
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {

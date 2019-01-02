@@ -49,7 +49,7 @@ public class Trips extends AppCompatActivity {
 
     public void getTripList() {
         String phone = dashboard.phone;
-        LocalData.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
+        Backend.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
             @Override
             public void call(ArrayList<TripInfo> res) {
                 tripList = res;
