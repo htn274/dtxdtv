@@ -10,9 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class login extends AppCompatActivity {
-
-    public String phone;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +23,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
 
-                phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
+                final String phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText) findViewById(R.id.editText_password)).getText().toString();
                 Backend.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
                     @Override
@@ -56,7 +53,6 @@ public class login extends AppCompatActivity {
 
     public void loginOnlick(View view) {
         Intent intent = new Intent(this, dashboard.class);
-        intent.putExtra("phone", phone);
         startActivity(intent);
         finish();
     }
