@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -132,29 +135,38 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == btn_add){
-            Log.d("Nunu", "onClick: add");
-            final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
-            planAdapter.notifyDataSetChanged();
-            LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
-                    dateTime, chosen_place.getLatLng(), new MyCallback<Boolean>() {
-                @Override
-                public void call(Boolean res) {
-                    if (res == false){
-                        Toast.makeText(getActivity().getApplicationContext(), "Add place failed, please try again", Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(getActivity().getApplicationContext(), "Add place succeed", Toast.LENGTH_SHORT).show();
-                        arrPlaces.add(new Place_In_Plan(chosen_place.getName().toString(), dateTime, chosen_place.getLatLng()));
-                        sortArrayByDateTime(arrPlaces);
-                        planAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
+            if (chosen_place == null){
+                Toast.makeText(getActivity().getApplicationContext(), "You must chose place.", Toast.LENGTH_SHORT);
+            }
+            else if (TextUtils.isEmpty(edit_date.getText().toString()) || TextUtils.isEmpty(edit_time.getText().toString())){
+                Toast.makeText(getActivity().getApplicationContext(), "You must set time and date", Toast.LENGTH_LONG);
+            }
+            else {
+                final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
+                planAdapter.notifyDataSetChanged();
+                LocalData.AddPlace(getActivity().getApplicationContext(), groupID, chosen_place.getName().toString(),
+                        dateTime, chosen_place.getLatLng(), new MyCallback<Boolean>() {
+                            @Override
+                            public void call(Boolean res) {
+                                if (res == false){
+                                    Toast.makeText(getActivity().getApplicationContext(), "Add place failed, please try again", Toast.LENGTH_SHORT).show();
+                                } else{
+                                    Toast.makeText(getActivity().getApplicationContext(), "Add place succeed", Toast.LENGTH_SHORT).show();
+                                    arrPlaces.add(new Place_In_Plan(chosen_place.getName().toString(), dateTime, chosen_place.getLatLng()));
+                                    sortArrayByDateTime(arrPlaces);
+                                    planAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+            }
         }
         else if (v == btn_showMap){
             if (arrPlaces.size() > 0) {
                 Intent intent = new Intent(getActivity(), PlacesMap.class);
                 intent.putParcelableArrayListExtra("placesList", arrPlaces);
                 startActivity(intent);
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "No place to show.", Toast.LENGTH_LONG);
             }
         }
 
