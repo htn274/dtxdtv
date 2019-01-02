@@ -36,7 +36,7 @@ public class group_trip_members extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_group_trip_members, container, false);
         lvMembers = v.findViewById(R.id.lvMembers);
-        Backend.getUsersInGroup(getContext(), groupId, new MyCallback<ArrayList<User>>() {
+        Backend.getUsersInGroup(groupId, new MyCallback<ArrayList<User>>() {
             @Override
             public void call(ArrayList<User> res) {
                 lvMembers.setAdapter(new UserAdapter(getContext(), 0, res));

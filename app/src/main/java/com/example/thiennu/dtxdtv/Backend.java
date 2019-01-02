@@ -81,33 +81,34 @@ class Place_In_Plan implements Parcelable {
 
 class Backend {
     private static String host = "http://167.99.138.220:8174";
+    private static RequestQueue queue;
 
-    static void sendRequest(Context context, String url, JSONObject data, Response.Listener<JSONObject> callback) {
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(context);
-            JsonObjectRequest stringRequest = null;
-            stringRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    url,
-                    data,
-                    callback,
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("btag", "rjp");
-                        }
-                    });
-            requestQueue.add(stringRequest);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    static void initBackend(Context context) {
+        queue = Volley.newRequestQueue(context);
     }
 
-    static void Login(Context context, String phone, String pass, final MyCallback<Boolean> cb) {
+    static void sendRequest(String url, JSONObject data, Response.Listener<JSONObject> callback) {
+
+        JsonObjectRequest stringRequest = null;
+        stringRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                data,
+                callback,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
+    static void Login(String phone, String pass, final MyCallback<Boolean> cb) {
         try {
             String url = host + "/signin";
             JSONObject data = new JSONObject().put("phone_number", phone).put("password", pass);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -124,13 +125,13 @@ class Backend {
         }
     }
 
-    static void AddPlace(Context context, final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb) {
+    static void AddPlace(final String groupID, String name, String time, LatLng location, final MyCallback<Boolean> cb) {
         try {
             String url = host + "/addplace";
             JSONObject data = new JSONObject().put("group_id", groupID).put("name", name).put("time", time)
                     .put("latitude", location.latitude).put("longtitude", location.longitude);
             Log.d("Nunu", name + " " + time);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -149,14 +150,14 @@ class Backend {
         }
     }
 
-    static void createTrip(Context context, String tripName, String[] memberList, String fromData, String toDate, final MyCallback<String> cb) {
+    static void createTrip(String tripName, String[] memberList, String fromData, String toDate, final MyCallback<String> cb) {
         try {
             String url = host + "/creategroup";
             JSONObject data = new JSONObject().put("group_name", tripName)
                     .put("members", new JSONArray(memberList))
                     .put("start", fromData)
                     .put("end", toDate);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -174,11 +175,11 @@ class Backend {
         }
     }
 
-    static void getGroupOfUser(Context context, String phone, final MyCallback<ArrayList<TripInfo>> cb) {
+    static void getGroupOfUser(String phone, final MyCallback<ArrayList<TripInfo>> cb) {
         try {
             String url = host + "/groupsofauser";
             JSONObject data = new JSONObject().put("user", phone);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -216,11 +217,11 @@ class Backend {
         }
     }
 
-    static void getUsersInfo(Context context, ArrayList<String> phones, final MyCallback<ArrayList<User>> cb) {
+    static void getUsersInfo(ArrayList<String> phones, final MyCallback<ArrayList<User>> cb) {
         try {
             String url = host + "/viewmembers";
             JSONObject data = new JSONObject().put("users", new JSONArray(phones));
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -244,11 +245,11 @@ class Backend {
         }
     }
 
-    public static void getPlaceInGroup(Context context, String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb) {
+    public static void getPlaceInGroup(String groupID, final MyCallback<ArrayList<Place_In_Plan>> cb) {
         try {
             String url = host + "/viewgroup";
             JSONObject data = new JSONObject().put("group_id", groupID);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -274,11 +275,11 @@ class Backend {
         }
     }
 
-    public static void getUsersInGroup(Context context, String groupId, final MyCallback<ArrayList<User>> cb) {
+    public static void getUsersInGroup(String groupId, final MyCallback<ArrayList<User>> cb) {
         try {
             String url = host + "/usersingroup";
             JSONObject data = new JSONObject().put("group_id", groupId);
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -302,12 +303,12 @@ class Backend {
         }
     }
 
-    public static List<Message> syncCheckNewMessage(Context context, String group_id, Double last_updated) {
+    public static List<Message> syncCheckNewMessage(String group_id, Double last_updated) {
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         try {
             String url = host + "/getnewmessages";
             JSONObject data = new JSONObject().put("group_id", group_id).put("last_updated", last_updated);
-            sendRequest(context, url, data, future);
+            sendRequest(url, data, future);
             JSONObject response = future.get(1, TimeUnit.SECONDS);
             JSONArray jsonArray = response.getJSONArray("messages");
             ArrayList<Message> messages = new ArrayList<>();
@@ -328,11 +329,11 @@ class Backend {
         return new ArrayList<>();
     }
 
-    public static void sendMessage(Context context, String group_id, String text) {
+    public static void sendMessage(String group_id, String text) {
         String url = host + "/addchat";
         try {
             JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", LocalData.getPhoneNumber());
-            sendRequest(context, url, data, new Response.Listener<JSONObject>() {
+            sendRequest(url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 

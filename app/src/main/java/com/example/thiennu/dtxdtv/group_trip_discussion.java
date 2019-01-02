@@ -51,7 +51,7 @@ public class group_trip_discussion extends Fragment {
             @Override
             public void run() {
                 while (true) {
-                    List<Message> newMessages = Backend.syncCheckNewMessage(getContext(), group_id, last_updated);
+                    List<Message> newMessages = Backend.syncCheckNewMessage(group_id, last_updated);
 
                     messages.addAll(newMessages);
                     messageRecycler.postInvalidate();
@@ -71,7 +71,7 @@ public class group_trip_discussion extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!editText.getText().equals("")) {
-                    Backend.sendMessage(getContext(), group_id, editText.getText().toString());
+                    Backend.sendMessage(group_id, editText.getText().toString());
                     editText.setText("");
                 }
             }

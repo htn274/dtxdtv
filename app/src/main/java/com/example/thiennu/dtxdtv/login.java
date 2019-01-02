@@ -13,6 +13,7 @@ public class login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Backend.initBackend(getApplicationContext());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
@@ -25,7 +26,7 @@ public class login extends AppCompatActivity {
 
                 final String phone = ((EditText) findViewById(R.id.editText_phonenumber)).getText().toString();
                 String pass = ((EditText) findViewById(R.id.editText_password)).getText().toString();
-                Backend.Login(getApplicationContext(), phone, pass, new MyCallback<Boolean>() {
+                Backend.Login(phone, pass, new MyCallback<Boolean>() {
                     @Override
                     public void call(Boolean response) {
                         if (response) {

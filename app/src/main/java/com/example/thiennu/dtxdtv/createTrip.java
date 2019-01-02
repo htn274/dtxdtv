@@ -102,7 +102,6 @@ public class createTrip extends Activity implements View.OnClickListener {
                 toDateEtxt.setError("Trip name must not be empty");
             } else {
                 Backend.createTrip(
-                        getApplicationContext(),
                         tripName.getText().toString(),
                         memberList.getText().toString().split(" "),
                         fromDateEtxt.getText().toString(),
