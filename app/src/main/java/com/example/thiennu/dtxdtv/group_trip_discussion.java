@@ -39,8 +39,6 @@ public class group_trip_discussion extends Fragment {
         Log.d("btag", "nooooo");
         View v = inflater.inflate(R.layout.activity_chat, container, false);
 
-
-
         messages = new ArrayList<>();
         messageAdapter = new MessageAdapter(getContext(), messages);
         Log.d("btag", "" + messageAdapter.getItemCount());
@@ -58,13 +56,8 @@ public class group_trip_discussion extends Fragment {
                     List<Message> newMessages = LocalData.syncCheckNewMessage(getContext(), group_id, last_updated);
 
                     messages.addAll(newMessages);
-                    messageRecycler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageAdapter.notifyDataSetChanged();
-                            messageRecycler.invalidate();
-                        }
-                    });
+                    messageRecycler.invalidate();
+//                    messageRecycler.scrollToPosition(messages.size() - 1);
 
                     if (!messages.isEmpty()) {
                         last_updated = messages.get(messages.size() - 1).time;
