@@ -79,10 +79,6 @@ class Place_In_Plan implements Parcelable {
     }
 }
 
-class LocalData {
-    static String phoneNumber;
-}
-
 class Backend {
     private static String host = "http://167.99.138.220:8174";
 
