@@ -51,15 +51,13 @@ public class group_trip_discussion extends Fragment {
             @Override
             public void run() {
                 while (true) {
-                    List<Message> newMessages = Backend.syncCheckNewMessage(group_id, last_updated);
-
-                    messages.addAll(newMessages);
-                    messageRecycler.postInvalidate();
-//                    messageRecycler.scrollToPosition(messages.size() - 1);
-
-                    if (!messages.isEmpty()) {
-                        last_updated = messages.get(messages.size() - 1).time;
+                    Message newMessage = Backend.syncCheckNewMessage(group_id, last_updated);
+                    if (newMessage != null) {
+                        messages.add(newMessage);
+                        messageRecycler.postInvalidate();
+                        last_updated = newMessage.time;
                     }
+//                    messageRecycler.scrollToPosition(messages.size() - 1);
                 }
             }
         });

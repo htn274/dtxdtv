@@ -172,13 +172,11 @@ def users_in_group():
 def get_new_messages():
     group_id = request.json['group_id']
     last_updated = float(request.json['last_updated'])
-    res = []
     for plan in plans:
         if plan['group_id'] == group_id:
             for chat in plan['discussion']:
                 if last_updated < float(chat['time']):
-                    res.append(chat)
-    return jsonify({'messages': res})
+                    return jsonify(chat)
             
 if (__name__ == '__main__'):
     load_json()

@@ -296,30 +296,24 @@ class Backend {
         }
     }
 
-    static List<Message> syncCheckNewMessage(String group_id, Double last_updated) {
+    static Message syncCheckNewMessage(String group_id, Double last_updated) {
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         try {
             String url = host + "/getnewmessages";
             JSONObject data = new JSONObject().put("group_id", group_id).put("last_updated", last_updated);
             sendRequest(url, data, future);
-            JSONObject response = future.get(1, TimeUnit.SECONDS);
-            JSONArray jsonArray = response.getJSONArray("messages");
-            ArrayList<Message> messages = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); ++i) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                Message message = new Message();
-                message.message = object.getString("text");
-                message.user = new User();
-                message.user.phone_number = object.getString("user");
-                message.type = (message.user.phone_number.equals(LocalData.getPhoneNumber()) ? 0 : 1);
-                message.time = object.getDouble("time");
-                messages.add(message);
-            }
-            return messages;
+            JSONObject object = future.get(400, TimeUnit.MILLISECONDS);
+            Message message = new Message();
+            message.message = object.getString("text");
+            message.user = new User();
+            message.user.phone_number = object.getString("user");
+            message.type = (message.user.phone_number.equals(LocalData.getPhoneNumber()) ? 0 : 1);
+            message.time = object.getDouble("time");
+            return message;
         } catch (JSONException | InterruptedException | ExecutionException | TimeoutException | DataException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return null;
     }
 
     static void sendMessage(String group_id, String text) {
