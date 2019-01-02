@@ -33,7 +33,11 @@ public class login extends AppCompatActivity {
                     public void call(Boolean response) {
                         if (response) {
                             loginOnlick(v);
-                            LocalData.phoneNumber = phone;
+                            try {
+                                LocalData.setPhoneNumber(phone);
+                            } catch (DataException e) {
+                                Toast.makeText(getApplicationContext(), e.errorMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect phonenumber or password", Toast.LENGTH_SHORT).show();
                         }

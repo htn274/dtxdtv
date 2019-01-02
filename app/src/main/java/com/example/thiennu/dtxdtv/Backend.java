@@ -317,12 +317,12 @@ class Backend {
                 message.message = object.getString("text");
                 message.user = new User();
                 message.user.phone_number = object.getString("user");
-                message.type = (message.user.phone_number.equals(LocalData.phoneNumber) ? 0 : 1);
+                message.type = (message.user.phone_number.equals(LocalData.getPhoneNumber()) ? 0 : 1);
                 message.time = object.getDouble("time");
                 messages.add(message);
             }
             return messages;
-        } catch (JSONException | InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (JSONException | InterruptedException | ExecutionException | TimeoutException | DataException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
@@ -331,14 +331,14 @@ class Backend {
     public static void sendMessage(Context context, String group_id, String text) {
         String url = host + "/addchat";
         try {
-            JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", LocalData.phoneNumber);
+            JSONObject data = new JSONObject().put("group_id", group_id).put("text", text).put("user", LocalData.getPhoneNumber());
             sendRequest(context, url, data, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
                 }
             });
-        } catch (JSONException e) {
+        } catch (JSONException | DataException e) {
             e.printStackTrace();
         }
     }
