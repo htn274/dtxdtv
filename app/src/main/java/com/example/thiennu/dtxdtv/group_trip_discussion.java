@@ -65,10 +65,10 @@ public class group_trip_discussion extends Fragment {
             }
         });
 
-        final EditText editText = (EditText) v.findViewById(R.id.editTextMessage);
+        final EditText editText = v.findViewById(R.id.editTextMessage);
         editText.requestFocus();
 
-        ((Button) v.findViewById(R.id.buttonSendMessage)).setOnClickListener(new View.OnClickListener() {
+        v.findViewById(R.id.buttonSendMessage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!editText.getText().equals("")) {

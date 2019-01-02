@@ -39,25 +39,25 @@ public class createTrip extends Activity implements View.OnClickListener {
     }
 
     private void findViewsById() {
-        fromDateEtxt = (EditText) findViewById(R.id.editText_dateFrom);
+        fromDateEtxt = findViewById(R.id.editText_dateFrom);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
 //        dateSetter = new DateSetter(fromDateEtxt, getApplicationContext());
 
-        toDateEtxt = (EditText) findViewById(R.id.editText_dateTo);
+        toDateEtxt = findViewById(R.id.editText_dateTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
 //        dateSetter1 = new DateSetter(toDateEtxt, getApplicationContext());
 
-        createButton = ((Button) findViewById(R.id.btn_create));
-        createButton.setOnClickListener((View.OnClickListener) this);
+        createButton = findViewById(R.id.btn_create);
+        createButton.setOnClickListener(this);
 
-        memberList = (EditText) findViewById(R.id.editText_memberslist);
+        memberList = findViewById(R.id.editText_memberslist);
         memberList.setText(dashboard.phone);
-        tripName = (EditText) findViewById(R.id.editText_tripName);
+        tripName = findViewById(R.id.editText_tripName);
     }
 
     private void setDateTimeField() {
-        fromDateEtxt.setOnClickListener((View.OnClickListener) this);
-        toDateEtxt.setOnClickListener((View.OnClickListener) this);
+        fromDateEtxt.setOnClickListener(this);
+        toDateEtxt.setOnClickListener(this);
 
         Calendar newCalendar = Calendar.getInstance();
         fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {

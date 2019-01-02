@@ -29,8 +29,8 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
         if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.trip_info, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tripName = (TextView) convertView.findViewById(R.id.tripName);
-            viewHolder.time = (TextView) convertView.findViewById(R.id.tripTime);
+            viewHolder.tripName = convertView.findViewById(R.id.tripName);
+            viewHolder.time = convertView.findViewById(R.id.tripTime);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -38,7 +38,7 @@ public class TripListAdapter extends ArrayAdapter<TripInfo> {
 
         TripInfo tripInfo = tripList.get(position);
         viewHolder.tripName.setText(tripInfo.getTrip_name());
-        viewHolder.time.setText(tripInfo.fromDate.toString() + " - " + tripInfo.toDate.toString());
+        viewHolder.time.setText(tripInfo.fromDate + " - " + tripInfo.toDate);
 
         return convertView;
     }

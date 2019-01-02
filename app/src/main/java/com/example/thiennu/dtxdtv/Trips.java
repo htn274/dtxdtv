@@ -22,7 +22,7 @@ public class Trips extends AppCompatActivity {
         getSupportActionBar().setTitle("My Trips");
         tripList = new ArrayList<>();
         getTripList();
-        lvTrips = (ListView) findViewById(R.id.lvTrips);
+        lvTrips = findViewById(R.id.lvTrips);
     }
 
     @Override

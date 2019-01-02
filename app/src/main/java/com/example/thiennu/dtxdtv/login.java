@@ -24,7 +24,7 @@ public class login extends AppCompatActivity {
             bar.hide();
         }
         setContentView(R.layout.activity_login);
-        ((Button) findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
 
@@ -43,7 +43,7 @@ public class login extends AppCompatActivity {
                 });
             }
         });
-        ((TextView) findViewById(R.id.buttonSignUp)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonSignUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);

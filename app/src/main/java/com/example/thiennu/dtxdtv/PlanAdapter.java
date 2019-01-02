@@ -29,8 +29,8 @@ public class PlanAdapter extends ArrayAdapter<Place_In_Plan> {
         if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.plan_layout, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.name = (TextView) convertView.findViewById(R.id.textViewPlanName);
-            viewHolder.time = (TextView) convertView.findViewById(R.id.textViewTime);
+            viewHolder.name = convertView.findViewById(R.id.textViewPlanName);
+            viewHolder.time = convertView.findViewById(R.id.textViewTime);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

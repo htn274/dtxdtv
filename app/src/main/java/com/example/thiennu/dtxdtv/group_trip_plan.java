@@ -76,9 +76,9 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
         TimeSetter timeSetter = new TimeSetter(edit_time, view.getContext());
 
         btn_add = view.findViewById(R.id.btn_addPlace);
-        btn_add.setOnClickListener((View.OnClickListener) this);
+        btn_add.setOnClickListener(this);
         btn_showMap = view.findViewById(R.id.btn_showPlacesMap);
-        btn_showMap.setOnClickListener((View.OnClickListener) this);
+        btn_showMap.setOnClickListener(this);
 
         arrPlaces = new ArrayList<>();
         lv_places = view.findViewById(R.id.lv_places);
