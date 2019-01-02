@@ -11,9 +11,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class Trips extends AppCompatActivity {
-
-    public TripListAdapter customAdaper;
-    ArrayList<TripInfo> tripList;
     private ListView lvTrips;
 
     @Override
@@ -21,21 +18,6 @@ public class Trips extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
         getSupportActionBar().setTitle("My Trips");
-        tripList = new ArrayList<>();
-        getTripList();
-        lvTrips = findViewById(R.id.lvTrips);
-    }
-
-    @Override
-    protected void onResume() {
-        getTripList();
-        super.onResume();
-    }
-
-    public void setLvTrips() {
-        customAdaper = new TripListAdapter(this, R.layout.trip_info, tripList);
-        customAdaper.notifyDataSetChanged();
-        lvTrips.setAdapter(customAdaper);
         lvTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -45,31 +27,23 @@ public class Trips extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        lvTrips = findViewById(R.id.lvTrips);
+        updateTripList();
     }
 
-
-    public void getTripList() {
-        String phone = null;
-        try {
-            phone = LocalData.getPhoneNumber();
-        } catch (DataException e) {
-            Toast.makeText(getApplicationContext(), e.errorMessage(), Toast.LENGTH_SHORT).show();
-        }
-        Backend.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
-            @Override
-            public void call(ArrayList<TripInfo> res) {
-                tripList = res;
-                if (tripList.size() > 0) {
-                    setLvTrips();
-                }
-            }
-        });
-
+    @Override
+    protected void onResume() {
+        updateTripList();
+        super.onResume();
     }
 
+    public void updateTripList() {
+        TripListAdapter customAdaper = new TripListAdapter(this, R.layout.trip_info, LocalData.getTripList());
+        customAdaper.notifyDataSetChanged();
+        lvTrips.setAdapter(customAdaper);
+    }
 
     public void addGroup(View view) {
         startActivity(new Intent(this, createTrip.class));
-
     }
 }

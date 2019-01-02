@@ -1,6 +1,8 @@
 package com.example.thiennu.dtxdtv;
 
-import android.provider.ContactsContract;
+import com.example.thiennu.dtxdtv.TripInfo;
+
+import java.util.ArrayList;
 
 class DataException extends Exception {
     static final int SET_PHONE_TWICE = 0;
@@ -16,7 +18,7 @@ class DataException extends Exception {
         return kind;
     }
 
-    String errorMessage() {
+    public String toString() {
         return "Data error";
     }
 }
@@ -36,5 +38,25 @@ class LocalData {
             throw new DataException(DataException.PHONE_NOT_SET);
         }
         return phoneNumber;
+    }
+
+    static ArrayList<TripInfo> getTripList() {
+        /*
+        String phone = null;
+        try {
+            phone = LocalData.getPhoneNumber();
+        } catch (DataException e) {
+        }
+        Backend.getGroupOfUser(getApplicationContext(), phone, new MyCallback<ArrayList<TripInfo>>() {
+            @Override
+            public void call(ArrayList<TripInfo> res) {
+                tripList = res;
+                if (tripList.size() > 0) {
+                    setLvTrips();
+                }
+            }
+        });
+        */
+        return null;
     }
 }
