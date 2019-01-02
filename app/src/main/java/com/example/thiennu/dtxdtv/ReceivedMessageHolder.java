@@ -7,15 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
-    TextView messageText, nameText;
+    TextView messageText, phoneText;
     public ReceivedMessageHolder(@NonNull View itemView) {
         super(itemView);
         messageText = itemView.findViewById(R.id.textViewMessage);
-        nameText = itemView.findViewById(R.id.textViewUserName);
+        phoneText = itemView.findViewById(R.id.textViewPhone);
     }
 
     void bind(Message message) {
         messageText.setText(message.message);
-        nameText.setText(message.user.name);
+        phoneText.setText(message.user.phone_number);
     }
 }

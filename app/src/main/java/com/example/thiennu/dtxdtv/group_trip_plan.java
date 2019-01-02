@@ -136,10 +136,10 @@ public class group_trip_plan extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v == btn_add){
             if (chosen_place == null){
-                Toast.makeText(getActivity().getApplicationContext(), "You must chose place.", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity().getApplicationContext(), "You must chose place.", Toast.LENGTH_SHORT).show();
             }
             else if (TextUtils.isEmpty(edit_date.getText().toString()) || TextUtils.isEmpty(edit_time.getText().toString())){
-                Toast.makeText(getActivity().getApplicationContext(), "You must set time and date", Toast.LENGTH_LONG);
+                Toast.makeText(getActivity().getApplicationContext(), "You must set time and date", Toast.LENGTH_LONG).show();
             }
             else {
                 final String dateTime = edit_time.getText().toString() + " " + edit_date.getText().toString();
