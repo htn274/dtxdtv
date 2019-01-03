@@ -3,6 +3,7 @@ package com.example.thiennu.dtxdtv;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,6 @@ import java.util.List;
 
 public class group_trip_discussion extends Fragment {
     RecyclerView messageRecycler;
-    MessageAdapter messageAdapter;
     String group_id;
     Thread eventLooper;
     ArrayList<Message> messages;
@@ -36,7 +36,6 @@ public class group_trip_discussion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("btag", "nooooo");
         View v = inflater.inflate(R.layout.activity_chat, container, false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -45,10 +44,6 @@ public class group_trip_discussion extends Fragment {
         messageRecycler = v.findViewById(R.id.recyclerViewMessages);
         messageRecycler.setLayoutManager(linearLayoutManager);
         messages = new ArrayList<>();
-        // messageAdapter = new MessageAdapter(getContext(), messages);
-        // Log.d("btag", "" + messageAdapter.getItemCount());
-        // messageRecycler.setAdapter(messageAdapter);
-        // messageRecycler.invalidate();
 
         final FragmentActivity ac = getActivity();
         eventLooper = new Thread(new Runnable() {
@@ -66,17 +61,16 @@ public class group_trip_discussion extends Fragment {
                                 MessageAdapter adapter = new MessageAdapter(getContext(), messages);
                                 messageRecycler.setAdapter(adapter);
                                 messageRecycler.invalidate();
+                                messageRecycler.scrollToPosition(messages.size());
                             }
                         });
                     }
-//                    messageRecycler.scrollToPosition(messages.size() - 1);
                 }
             }
         });
 
         final EditText editText = v.findViewById(R.id.editTextMessage);
         // editText.requestFocus();
-
         v.findViewById(R.id.buttonSendMessage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -181,7 +181,7 @@ def get_new_messages():
                 else:
                     break
             res.reverse()
-            return jsonify({'messages': []})
+            return jsonify({'messages': res})
     return jsonify({'messages': []})
             
 if (__name__ == '__main__'):
