@@ -25,8 +25,8 @@ class UserAdapter extends ArrayAdapter<User> {
         if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.member_info, parent, false);
         }
-        ((TextView) convertView.findViewById(R.id.textViewMemberName)).setText(getItem(position).name);
-        ((TextView) convertView.findViewById(R.id.textViewMemberPhone)).setText(getItem(position).phone_number);
+        ((TextView) convertView.findViewById(R.id.textViewMemberName)).setText(users.get(position).name);
+        ((TextView) convertView.findViewById(R.id.textViewMemberPhone)).setText(users.get(position).phone_number);
         return convertView;
     }
 }
