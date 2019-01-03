@@ -61,7 +61,7 @@ public class group_trip_discussion extends Fragment {
                                 MessageAdapter adapter = new MessageAdapter(getContext(), messages);
                                 messageRecycler.setAdapter(adapter);
                                 messageRecycler.invalidate();
-                                messageRecycler.scrollToPosition(messages.size());
+                                messageRecycler.scrollToPosition(messages.size() - 1);
                             }
                         });
                     }
