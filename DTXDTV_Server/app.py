@@ -174,9 +174,15 @@ def get_new_messages():
     last_updated = float(request.json['last_updated'])
     for plan in plans:
         if plan['group_id'] == group_id:
-            for chat in plan['discussion']:
+            res = []
+            for chat in reversed(plan['discussion']):
                 if last_updated < float(chat['time']):
-                    return jsonify(chat)
+                    res.append(chat)
+                else:
+                    break
+            res.reverse()
+            return jsonify({'messages': []})
+    return jsonify({'messages': []})
             
 if (__name__ == '__main__'):
     load_json()
