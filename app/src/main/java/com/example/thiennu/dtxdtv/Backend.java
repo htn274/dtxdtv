@@ -280,9 +280,7 @@ class Backend {
                         ArrayList<User> res = new ArrayList<>();
                         for (int i = 0; i < arr.length(); i++) {
                             User u = new User();
-                            JSONObject o = arr.getJSONObject(i);
-                            u.name = o.getString("name");
-                            u.phone_number = o.getString("phone_number");
+                            u.phone_number = arr.getString(i);
                             res.add(u);
                         }
                         cb.call(res);

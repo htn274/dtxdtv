@@ -4,18 +4,27 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textViewMemberName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_weight="1" />
-
+    <!--<TextView-->
+        <!--android:id="@+id/textViewMemberName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:layout_weight="1" />-->
+    <ImageView
+        android:id="@+id/tripImage"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_group" />
     <TextView
         android:id="@+id/textViewMemberPhone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textAlignment="viewEnd"
+        android:gravity="end"
         android:layout_weight="1" />
 
 </LinearLayout>

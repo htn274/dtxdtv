@@ -15,7 +15,7 @@ class UserAdapter extends ArrayAdapter<User> {
     Context mContext;
 
     public UserAdapter(@NonNull Context context, int resource, ArrayList<User> users) {
-        super(context, resource);
+        super(context, resource, users);
         this.users = users;
         this.mContext = context;
     }
@@ -25,7 +25,7 @@ class UserAdapter extends ArrayAdapter<User> {
         if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.member_info, parent, false);
         }
-        ((TextView) convertView.findViewById(R.id.textViewMemberName)).setText(users.get(position).name);
+//        ((TextView) convertView.findViewById(R.id.textViewMemberName)).setText(users.get(position).name);
         ((TextView) convertView.findViewById(R.id.textViewMemberPhone)).setText(users.get(position).phone_number);
         return convertView;
     }
