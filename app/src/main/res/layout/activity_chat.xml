@@ -1,76 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".groupTrip"
-    android:fitsSystemWindows="true">
-    <android.support.v7.widget.RecyclerView
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/dummyView"
-        android:id="@+id/recyclerViewMessages"
-        android:layout_marginBottom="8dp">
-    </android.support.v7.widget.RecyclerView>
-    <View
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:id="@+id/dummyView"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewMessages"
-        app:layout_constraintBottom_toTopOf="@+id/layoutChatBox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/colorDarkGreen"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/layoutChatBox"
-        android:minHeight="48dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@id/dummyView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/dummyView2"
-        >
-        <EditText
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".groupTrip">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewMessages"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/dummyView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
+
+        <View
+            android:id="@+id/dummyView"
             android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="0dp"
+            android:background="@color/colorDarkGreen"
+            app:layout_constraintBottom_toTopOf="@+id/layoutChatBox"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewMessages" />
+
+        <LinearLayout
+            android:id="@+id/layoutChatBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/editTextMessage"
-            android:hint="Send message"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:maxLines="6"
-            />
-        <Button
-            android:id="@+id/buttonSendMessage"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:text="SEND"
-            android:textSize="14dp"
-            android:background="?attr/selectableItemBackground"
-            />
-    </LinearLayout>
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:id="@+id/dummyView2"
-        app:layout_constraintTop_toBottomOf="@+id/layoutChatBox"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+            android:background="@color/colorWhite"
+            android:minHeight="48dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/dummyView2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dummyView">
+
+            <EditText
+                android:id="@+id/editTextMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:hint="Send message"
+                android:maxLines="6" />
+
+            <Button
+                android:id="@+id/buttonSendMessage"
+                android:layout_width="64dp"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="SEND"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dummyView2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutChatBox" />
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>

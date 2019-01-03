@@ -1,7 +1,7 @@
 package com.example.thiennu.dtxdtv;
 
 public class DashModel {
-    private String head,sub;
+    private String head, sub;
     private int image;
 
     public DashModel() {

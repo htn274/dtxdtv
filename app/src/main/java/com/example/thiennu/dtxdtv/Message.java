@@ -1,8 +1,5 @@
 package com.example.thiennu.dtxdtv;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Message {
     public int type;
     public double time;

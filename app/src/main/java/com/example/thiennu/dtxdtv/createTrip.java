@@ -2,8 +2,6 @@ package com.example.thiennu.dtxdtv;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.media.ExifInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -20,13 +18,14 @@ import java.util.Locale;
 
 public class createTrip extends Activity implements View.OnClickListener {
 
-    private EditText fromDateEtxt;
-    private EditText toDateEtxt;
     EditText tripName;
     EditText memberList;
+    Button createButton;
+    DateSetter dateSetter;
+    private EditText fromDateEtxt;
+    private EditText toDateEtxt;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
-    Button createButton;
     private SimpleDateFormat dateFormatter;
     private DateSetter dateSetter1;
 
@@ -38,28 +37,31 @@ public class createTrip extends Activity implements View.OnClickListener {
         findViewsById();
         setDateTimeField();
     }
-    DateSetter dateSetter;
 
     private void findViewsById() {
-        fromDateEtxt = (EditText) findViewById(R.id.editText_dateFrom);
+        fromDateEtxt = findViewById(R.id.editText_dateFrom);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
 //        dateSetter = new DateSetter(fromDateEtxt, getApplicationContext());
 
-        toDateEtxt = (EditText) findViewById(R.id.editText_dateTo);
+        toDateEtxt = findViewById(R.id.editText_dateTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
 //        dateSetter1 = new DateSetter(toDateEtxt, getApplicationContext());
 
-        createButton = ((Button)findViewById(R.id.btn_create));
-        createButton.setOnClickListener((View.OnClickListener)this);
+        createButton = findViewById(R.id.btn_create);
+        createButton.setOnClickListener(this);
 
-        memberList = (EditText) findViewById(R.id.editText_memberslist);
-        memberList.setText(dashboard.phone);
-        tripName = (EditText) findViewById(R.id.editText_tripName);
+        memberList = findViewById(R.id.editText_memberslist);
+        try {
+            memberList.setText(LocalData.getPhoneNumber());
+        } catch (DataException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        tripName = findViewById(R.id.editText_tripName);
     }
 
     private void setDateTimeField() {
-        fromDateEtxt.setOnClickListener((View.OnClickListener) this);
-        toDateEtxt.setOnClickListener((View.OnClickListener) this);
+        fromDateEtxt.setOnClickListener(this);
+        toDateEtxt.setOnClickListener(this);
 
         Calendar newCalendar = Calendar.getInstance();
         fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -70,7 +72,7 @@ public class createTrip extends Activity implements View.OnClickListener {
                 fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         toDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -80,32 +82,26 @@ public class createTrip extends Activity implements View.OnClickListener {
                 toDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
     public void onClick(View view) {
-        if(view == fromDateEtxt) {
+        if (view == fromDateEtxt) {
             fromDatePickerDialog.show();
-        } else if(view == toDateEtxt) {
+        } else if (view == toDateEtxt) {
             toDatePickerDialog.show();
-        }
-        else if (view == createButton){
+        } else if (view == createButton) {
             if (TextUtils.isEmpty(tripName.getText().toString())) {
                 tripName.setError("Trip name must not be empty");
-            }
-            else if (TextUtils.isEmpty((memberList.getText().toString()))) {
+            } else if (TextUtils.isEmpty((memberList.getText().toString()))) {
                 memberList.setError("Trip name must not be empty");
-            }
-            else if (TextUtils.isEmpty((fromDateEtxt.getText().toString()))) {
+            } else if (TextUtils.isEmpty((fromDateEtxt.getText().toString()))) {
                 fromDateEtxt.setError("Trip name must not be empty");
-            }
-            else if (TextUtils.isEmpty((toDateEtxt.getText().toString()))) {
+            } else if (TextUtils.isEmpty((toDateEtxt.getText().toString()))) {
                 toDateEtxt.setError("Trip name must not be empty");
-            }
-            else {
-                LocalData.createTrip(
-                        getApplicationContext(),
+            } else {
+                Backend.createTrip(
                         tripName.getText().toString(),
                         memberList.getText().toString().split(" "),
                         fromDateEtxt.getText().toString(),
@@ -114,8 +110,7 @@ public class createTrip extends Activity implements View.OnClickListener {
                             public void call(String res) {
                                 if (res == null) {
                                     Toast.makeText(getApplicationContext(), "Create trip failed, please try again", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Create trip succeed", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }

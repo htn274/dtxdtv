@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".createTrip"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".createTrip">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trip name"/>
+        android:text="Trip name" />
+
     <EditText
+        android:id="@+id/editText_tripName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Trip name"
-        android:id="@+id/editText_tripName"/>
+        android:hint="Trip name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Members"/>
+        android:text="Members" />
+
     <EditText
+        android:id="@+id/editText_memberslist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Members list"
-        android:id="@+id/editText_memberslist"/>
+        android:hint="Members list" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"/>
+        android:text="Date" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/editText_dateFrom"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:hint="From"
             android:clickable="true"
-            android:id="@+id/editText_dateFrom"
-            />
+            android:hint="From"
+            android:paddingRight="10dp" />
 
         <EditText
+            android:id="@+id/editText_dateTo"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:hint="To"
-            android:id="@+id/editText_dateTo"/>
+            android:hint="To" />
 
     </LinearLayout>
-    
+
     <Button
+        android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:id="@+id/btn_create"/>
+        android:text="Create" />
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 class UserAdapter extends ArrayAdapter<User> {
     ArrayList<User> users;
     Context mContext;
+
     public UserAdapter(@NonNull Context context, int resource, ArrayList<User> users) {
         super(context, resource);
         this.users = users;
@@ -21,11 +22,11 @@ class UserAdapter extends ArrayAdapter<User> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(this.mContext).inflate(R.layout.member_info, parent, false);
         }
-        ((TextView)convertView.findViewById(R.id.textViewMemberName)).setText(((User)getItem(position)).name);
-        ((TextView)convertView.findViewById(R.id.textViewMemberPhone)).setText(((User)getItem(position)).phone_number);
+        ((TextView) convertView.findViewById(R.id.textViewMemberName)).setText(users.get(position).name);
+        ((TextView) convertView.findViewById(R.id.textViewMemberPhone)).setText(users.get(position).phone_number);
         return convertView;
     }
 }
